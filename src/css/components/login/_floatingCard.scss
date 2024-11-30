@@ -1,0 +1,57 @@
+.floatingCard{
+    background-color: $white;
+    width:540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:$s16;
+    box-sizing: border-box;
+    padding-left:$s32;
+    padding-right:$s32;
+    padding-top:$s48;
+    padding-bottom:$s48;
+    border-radius:$r12;
+    @include shadowLarge();
+
+
+    // widths
+     @media (min-width: $tabletWidth)
+     {
+        width:540px;
+     }
+     @media screen and (max-width: $tabletWidth)
+     {
+        width:calc(100% - (2 * $s40));        
+        margin-left:$s40;
+        margin-right:$s40;
+     }
+     @media screen and (max-width: $mobileWidth)
+     {
+        width:calc(100% - (2 * $s16));  
+        margin-left:$s16;
+        margin-right:$s16;
+     }
+
+     div{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      gap:$s8;
+
+      h1{
+         color:$Neutral950;
+      }
+      p{
+         color:$Neutral600;
+      }
+     }
+
+     .inputGroup{
+      width:100%;
+      padding-top:$s24;
+      display:flex;
+      flex-direction: column;
+      gap:$s16;
+      }
+
+}
