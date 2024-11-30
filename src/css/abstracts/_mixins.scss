@@ -1,0 +1,13 @@
+@mixin font( $fontSize , $weight, $letterSpacing, $lineHeight) {
+    font-family: $fontFamily;
+    font-optical-sizing: auto;
+    font-weight: $weight;
+    font-style: normal;
+    letter-spacing: $letterSpacing;
+    font-size: $fontSize;
+
+    line-height: $lineHeight;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }

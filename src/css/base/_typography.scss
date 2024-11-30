@@ -1,0 +1,31 @@
+h1{
+    @include font(1.5rem, 700, -0.5px, 29px);
+ 
+}
+
+h2{
+    @include font(1.250rem, 700, -0.5px, 24px);
+}
+
+h3{
+    @include font(1rem, 500, 0, 19px);
+}
+
+h4{
+    @include font(0.875rem, 500, 0, 17px);
+}
+
+p{
+    @include font(0.875rem, 400, 0, 18px);
+}
+
+.pSmall{
+    @include font(0.750rem, 400, 0, 14px);
+}
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+//colors
+$Neutral950: #0E121B;
+$Neutral900: #191B25;
+$Neutral800: #232530;
+$Neutral700: #2B303B;
+$Neutral600: #525866;
+$Neutral500: #717784;
+$Neutral400: #99A0AE;
+$Neutral300: #CACFD8;
+$Neutral200: #E0E4EA;
+$Neutral100: #F3F5F8;
+$Neutral50: #F5F7FA;
+$white: #FFFFFF;
+
+$blue700: #2547D0;
+$blue500: #335CFF;
+$blue50: #EBF1FF;
+
+$green500: #21C16B;
+$green100: #D1FBE9;
+
+$red500: #FB3748;
+$red100: #FFD5D8;
+
+
+
+
+
+
+
+
+
+//font
+$fontFamily: "Inter", sans-serif;
+
+//spacing
+$s0 : 0px;
+$s2 : 2px;
+$s4 : 4px;
+$s6 : 6px;
+$s8 : 8px;
+$s12 : 12px;
+$s16 : 16px;
+$s20 : 20px;
+$s24 : 24px;
+$s32 : 32px;
+$s40 : 40px;
+$s48 : 48px;
+$s56 : 56px;
+$s64 : 64px;
+$s72 : 72px;
+$s80 : 80px;
+
+
+//radius
+$r0 : 0px;
+$r4 : 4px;
+$r6 : 6px;
+$r8 : 8px;
+$r10 : 10px;
+$r12 : 12px;
+$r16 : 16px;
+$r20 : 20px;
+$r24 : 24px;
+$rfull : 9999px;
+
+
+
+//shadow
+@mixin shadowSmall(){
+    -webkit-box-shadow: 0px 4px 6px 0px rgba(240,240,240,0.6);
+    -moz-box-shadow: 0px 4px 6px 0px rgba(240,240,240,0.6);
+    box-shadow: 0px 4px 6px 0px rgba(240,240,240,0.6);
+}
+
+@mixin shadowLarge(){
+    -webkit-box-shadow: 0px 8px 12px 0px rgba(240,240,240,0.6);
+    -moz-box-shadow: 0px 8px 12px 0px rgba(240,240,240,0.6);
+    box-shadow: 0px 8px 12px 0px rgba(240,240,240,0.6);
+}
+
+
+
+
+//Container widths
+$desktopCont: 730px;
