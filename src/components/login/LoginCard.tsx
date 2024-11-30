@@ -1,5 +1,7 @@
 import Logo from "../Logo";
 import {useState} from "react";
+import CTA from "../CTA";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 export default function LoginCard() {
     const [email, setEmail] = useState("");
@@ -16,6 +18,10 @@ export default function LoginCard() {
                 setPassword(value);
                 break;
         }
+    }
+
+    function handleLogin(){
+        console.log(email, password);
     }
 
     
@@ -52,8 +58,23 @@ export default function LoginCard() {
                     />
                 </div>
 
-                <CTA/>
+                <CTA
+                    text="Log in"
+                    style="primary"
+                    clickHandler={handleLogin}
+                    type="submit"
+                    fullWidth={true}    
+                />
             </div>
+            
+            <div className="inputGroup">
+            <p>Or log in with:</p>
+                <LoginWithGoogle />
+            </div>
+
+            <div className="horizontalRule"></div>
+
+            <p>No account yet? <a href="google.com">Sign up</a></p>
         </div>
     )
 }

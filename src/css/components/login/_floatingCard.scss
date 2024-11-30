@@ -32,11 +32,18 @@
         margin-right:$s16;
      }
 
+   > div:nth-child(3) {
+      padding-top:$s24;
+   }
+
+  
+
      div{
       display:flex;
       flex-direction: column;
       align-items: center;
       gap:$s8;
+    
 
       h1{
          color:$Neutral950;
@@ -48,10 +55,18 @@
 
      .inputGroup{
       width:100%;
-      padding-top:$s24;
+      
       display:flex;
       flex-direction: column;
       gap:$s16;
+      }
+
+      .horizontalRule{
+         height:1px;
+         width:100%;
+         background-color:$Neutral200;
+         margin-top:$s24;
+         margin-bottom: $s24;
       }
 
 }
