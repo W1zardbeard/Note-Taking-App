@@ -18,6 +18,20 @@ app.use(express.static(join(__dirname, "public")));
 // Load environment variables
 env.config();
 
+// Bcrypt salt rounds
+const saltRounds = 10;
+
+// Database connection
+const db = new pg.Client({
+    user: process.env.PG_USER,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: process.env.PORT,
+  });
+
+  db.connect();
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,9 +40,10 @@ app.use(bodyParser.json());
 
 
 
-app.get("/api/test", (req, res) => {
-    res.send("Hello World!");
-  });
+app.post("/api/login", async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+});
 
 // ==============================
 // Start the server

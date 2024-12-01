@@ -1,7 +1,10 @@
-import Logo from "../Logo";
+import axios from "axios";
 import {useState} from "react";
+
+import Logo from "../Logo";
 import CTA from "../CTA";
 import LoginWithGoogle from "./LoginWithGoogle";
+
 
 export default function LoginCard() {
     const [email, setEmail] = useState("");
@@ -21,7 +24,16 @@ export default function LoginCard() {
     }
 
     function handleLogin(){
-        console.log(email, password);
+        axios.post("/api/login", {
+            email: email,
+            password: password
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error);
+        })
+
+
     }
 
     
@@ -34,37 +46,37 @@ export default function LoginCard() {
             </div>
 
             <div className="inputGroup">
-                <div className="inputField">
-                    <label htmlFor="email">Email address</label>
-                    <input
-                        onChange={handleChange}
-                       
-                        name="email" 
-                        type="email" 
-                        placeholder="eg. simon@email.com"
-                        value={email}
-                    />
-                </div>
+                <form name="loginForm" onSubmit={handleLogin}>
+                    <div className="inputField">
+                        <label htmlFor="email">Email address</label>
+                        <input
+                            onChange={handleChange}
+                            name="email" 
+                            type="email" 
+                            placeholder="eg. simon@email.com"
+                            value={email}
+                        />
+                    </div>
 
-                <div className="inputField">
-                    <label htmlFor="email">Password</label>
-                    <input
-                        onChange={handleChange}
-                      
-                        name="password" 
-                        type="password" 
-                        placeholder="Your password"
-                        value={password}
-                    />
-                </div>
+                    <div className="inputField">
+                        <label htmlFor="email">Password</label>
+                        <input
+                            onChange={handleChange}
+                        
+                            name="password" 
+                            type="password" 
+                            placeholder="Your password"
+                            value={password}
+                        />
+                    </div>
 
-                <CTA
-                    text="Log in"
-                    style="primary"
-                    clickHandler={handleLogin}
-                    type="submit"
-                    fullWidth={true}    
-                />
+                    <CTA
+                        text="Log in"
+                        style="primary"
+                        type="submit"
+                        fullWidth={true}    
+                    />
+                </form>
             </div>
             
             <div className="inputGroup">

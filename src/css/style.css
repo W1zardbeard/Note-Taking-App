@@ -178,6 +178,12 @@ p {
 .floatingCard div p {
   color: #525866;
 }
+.floatingCard form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .floatingCard .inputGroup {
   width: 100%;
   display: flex;
