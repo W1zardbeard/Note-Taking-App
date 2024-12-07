@@ -161,6 +161,9 @@ p {
     width: calc(100% - 32px);
     margin-left: 16px;
     margin-right: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
   }
 }
 .floatingCard > div:nth-child(3) {

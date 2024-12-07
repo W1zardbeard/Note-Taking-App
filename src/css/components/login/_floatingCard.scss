@@ -30,6 +30,9 @@
         width:calc(100% - (2 * $s16));  
         margin-left:$s16;
         margin-right:$s16;
+        padding-left:$s16;
+         padding-right:$s16;
+         text-align: center;
      }
 
    > div:nth-child(3) {

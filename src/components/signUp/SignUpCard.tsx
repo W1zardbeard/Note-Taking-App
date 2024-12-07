@@ -1,29 +1,29 @@
 import axios from "axios";
 import {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 import Logo from "../Logo";
 import CTA from "../CTA";
-import LoginWithGoogle from "./LoginWithGoogle";
-import { useNavigate } from 'react-router-dom';
+import LoginWithGoogle from "../login/LoginWithGoogle";
+
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function LoginCard() {
-
-    //set up navigate
-    const navigate = useNavigate();
-
+export default function SignUpCard() {
     //set up state
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    //set up navigate
+    const navigate = useNavigate();
 
     //handle change
     function handleChange(event){
         //destructure the event
         const{name, value} = event.target;
- 
+
         //switch statement to determine which input field is being updated
         switch (name){
             case "email":
@@ -35,17 +35,18 @@ export default function LoginCard() {
         }
     }
 
-    //handle login
-    function handleLogin(event: any){
+    //handle signup
+    function handleSignUp(event:any){
         //prevent default form submission
         event.preventDefault();
         //make a post request to the server
-        axios.post("/api/login", {
+        axios.post("/api/register", {
             email: email,
             password: password
         }).then((response) => {
             //log the response
-            console.log(response.data);
+            console.log("User created successfully");
+            console.log(response);
             //navigate to the dashboard
             navigate("/dashboard");
         }).catch((error) => {
@@ -64,12 +65,12 @@ export default function LoginCard() {
         <div className="floatingCard">
             <Logo />
             <div>
-                <h1>Welcome to Note</h1>
-                <p>Please log in to continue</p>
+                <h1>Create your account</h1>
+                <p>Sign up to start organizing your notes and boost your productivity.</p>
             </div>
 
             <div className="inputGroup">
-                <form name="loginForm" onSubmit={handleLogin}>
+                <form name="loginForm" onSubmit={handleSignUp}>
                     <div className="inputField">
                         <label htmlFor="email">Email address</label>
                         <input
@@ -94,7 +95,7 @@ export default function LoginCard() {
                     </div>
 
                     <CTA
-                        text="Log in"
+                        text="Sign up"
                         style="primary"
                         type="submit"
                         fullWidth={true}    
@@ -109,7 +110,7 @@ export default function LoginCard() {
 
             <div className="horizontalRule"></div>
 
-            <p>No account yet? <a href="/signup">Sign up</a></p>
+            <p>Already have an account? <a href="/">Login</a></p>
         </div>
     )
 }
