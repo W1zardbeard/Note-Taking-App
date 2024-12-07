@@ -1,0 +1,43 @@
+.inputField {
+    display: flex;
+    flex-direction: column;
+    gap: $s6;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+
+    label {
+        @include font(0.875rem, 500, 0, 17px);
+        color: $Neutral950;
+        width:100%;
+        text-align: left; // Ensure text is left-aligned
+       
+    }
+
+    input {
+        width: 100%;
+        @include font(0.875rem, 400, 0, 18px);
+        color:$Neutral950;
+        padding-left:$s16;
+        padding-right:$s16;
+        padding-top:$s12;
+        padding-bottom:$s12;
+        border-radius: $r8;
+        border:$Neutral300 1px solid;
+        
+
+        &::placeholder {
+            color: $Neutral500;
+        }
+
+
+        &:focus{
+            border:$blue700 1px solid;
+            outline:none;
+            -webkit-box-shadow: 0px 0px 25px -6px rgba(37,71,208,0.5);
+            -moz-box-shadow: 0px 0px 25px -6px rgba(37,71,208,0.5);
+            box-shadow: 0px 0px 25px -6px rgba(37,71,208,0.5);
+           
+        }
+    }
+}

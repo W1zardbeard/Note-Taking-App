@@ -1,0 +1,82 @@
+.floatingCard{
+    background-color: $white;
+    width:540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:$s16;
+    box-sizing: border-box;
+    padding-left:$s32;
+    padding-right:$s32;
+    padding-top:$s48;
+    padding-bottom:$s48;
+    border-radius:$r12;
+    @include shadowLarge();
+
+
+    // widths
+     @media (min-width: $tabletWidth)
+     {
+        width:540px;
+     }
+     @media screen and (max-width: $tabletWidth)
+     {
+        width:calc(100% - (2 * $s40));        
+        margin-left:$s40;
+        margin-right:$s40;
+     }
+     @media screen and (max-width: $mobileWidth)
+     {
+        width:calc(100% - (2 * $s16));  
+        margin-left:$s16;
+        margin-right:$s16;
+        padding-left:$s16;
+         padding-right:$s16;
+         text-align: center;
+     }
+
+   > div:nth-child(3) {
+      padding-top:$s24;
+   }
+
+  
+
+     div{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      gap:$s8;
+    
+
+      h1{
+         color:$Neutral950;
+      }
+      p{
+         color:$Neutral600;
+      }
+     }
+
+     form{
+      width:100%;
+      display:flex;
+      flex-direction: column;
+      gap:$s16;
+     }
+
+     .inputGroup{
+      width:100%;
+      
+      display:flex;
+      flex-direction: column;
+      gap:$s16;
+      }
+
+      .horizontalRule{
+         height:1px;
+         width:100%;
+         background-color:$Neutral200;
+         margin-top:$s24;
+         margin-bottom: $s24;
+      }
+
+}

@@ -83,4 +83,12 @@ $rfull : 9999px;
 
 
 //Container widths
-$desktopCont: 730px;
+$desktopWidth : 1440px;
+$tabletWidth : 768px;
+$mobileWidth : 375px;
+
+$breakpoints: (
+    'desktop': $desktopWidth,
+    'tablet': $tabletWidth,
+    'mobile': $mobileWidth 
+);
