@@ -1,0 +1,60 @@
+.sidenav{
+    display:flex;
+    flex-direction:column;
+    padding-top:$s12;
+    padding-left:$s16;
+    padding-right:$s16;
+    padding-bottom:$s16;
+    color:$Neutral700;
+    gap:$s16;
+
+
+    width:272px;
+    height:100%;
+
+    border-right: 1px solid $Neutral200;
+
+    .navList{
+        display:flex;
+        flex-direction:column;
+        gap:$s8;
+
+        .navHeader{
+            color:$Neutral500;
+        }
+
+        .navItemContainer{
+            display:flex;
+            flex-direction:column;
+            gap:$s4;
+        }
+
+
+
+        .navItem{
+            display:flex;
+            gap:$s8;
+            align-items: center;
+            padding-top:$s8;
+            padding-bottom:$s8;
+            padding-left:$s12;
+            padding-right:$s12;
+
+            width:100%;
+
+            &:hover{
+                background-color:$Neutral50;
+                border-radius:$r8;
+                cursor: pointer;
+            }
+        
+        }
+
+        .horizontalRule{
+            height:1px;
+            width:100%;
+            background-color:$Neutral200;
+      
+         }
+    }
+}

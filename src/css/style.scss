@@ -11,6 +11,10 @@
 @import "./components/login/floatingCard";
 @import "./components/input";
 @import "./components/CTA";
+@import "./components/dashboard/sidenav";
+@import "./components/dashboard/topHeader";
+@import "./components/dashboard/searchBar"; 
+@import "./components/dashboard/noteList";
 
 
 
@@ -19,6 +23,7 @@
 
 //Pages
 @import "./pages/login";
+@import "./pages/dashboard";
 
 
 //Themes

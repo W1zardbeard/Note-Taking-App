@@ -321,6 +321,123 @@ a:hover {
   text-decoration: underline;
 }
 
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  color: #2B303B;
+  gap: 16px;
+  width: 272px;
+  height: 100%;
+  border-right: 1px solid #E0E4EA;
+}
+.sidenav .navList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sidenav .navList .navHeader {
+  color: #717784;
+}
+.sidenav .navList .navItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sidenav .navList .navItem {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 100%;
+}
+.sidenav .navList .navItem:hover {
+  background-color: #F5F7FA;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sidenav .navList .horizontalRule {
+  height: 1px;
+  width: 100%;
+  background-color: #E0E4EA;
+}
+
+.topHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E0E4EA;
+  color: #0E121B;
+}
+.topHeader div {
+  display: flex;
+  gap: 16px;
+}
+.topHeader div .settingsButton {
+  background-color: #FFFFFF;
+  border: none;
+}
+.topHeader div .settingsButton img {
+  filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+}
+.topHeader div .settingsButton:hover img {
+  filter: invert(30%) sepia(34%) saturate(7429%) hue-rotate(225deg) brightness(102%) contrast(101%);
+}
+
+.searchBar {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 1px solid #CACFD8;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.searchBar img {
+  filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+}
+.searchBar input {
+  border-style: none;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: #0E121B;
+}
+.searchBar input:focus {
+  outline: none;
+}
+
+.noteList {
+  width: 290px;
+  height: 100%;
+  border-right: 1px solid #E0E4EA;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 20px;
+}
+
 .loginPage {
   height: 100vh;
   display: flex;
@@ -328,4 +445,17 @@ a:hover {
   align-items: center;
   flex-direction: column;
   background-color: #F3F5F8;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+.dashboard .main {
+  width: 100%;
+}
+.dashboard .main .notePane {
+  display: flex;
+  height: auto;
 }/*# sourceMappingURL=style.css.map */
