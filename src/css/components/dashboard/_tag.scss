@@ -4,6 +4,7 @@
     padding-left:$s8;
     padding-top:$s4;
     padding-bottom:$s4;
+    align-items: center;
 
     background-color:$Neutral200;
     flex:0;
@@ -11,4 +12,12 @@
     border-radius:$r4;
 
     color:$Neutral950;
+}
+
+.tagContainer{
+    display: flex;
+    flex-wrap: wrap;
+  
+    gap:$s4;
+  
 }

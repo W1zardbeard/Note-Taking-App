@@ -17,7 +17,7 @@ export default function NoteListItem(props:any){
                 }
                 
             </div>
-            <p className='pSmall date'>{props.note.date}</p>
+            <p className='pSmall date'>{props.note.lastEditDate}</p>
         </div>
     )
 }

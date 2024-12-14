@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import SideNav from '../components/dashboard/sideNav/SideNav.tsx';
 import TopHeader from '../components/dashboard/topHeader/TopHeader';
 import NoteList from '../components/dashboard/notePane/NoteList';
+import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent';
 
 
 export default function Dashboard() {
@@ -66,6 +67,10 @@ export default function Dashboard() {
                 <div className='notePane'>
                   <NoteList 
                     notes={notes}
+                  />
+
+                  <NoteContent 
+                    note={notes[0]}
                   />
                 </div>
             </div>

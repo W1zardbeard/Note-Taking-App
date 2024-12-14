@@ -8,7 +8,7 @@
     padding-right:$s8;
     padding-top:$s8;
     padding-bottom: $s8;
-    
+
     border-bottom: 1px solid $Neutral200;
 
     h3{
@@ -19,12 +19,6 @@
         color:$Neutral700;
     }
 
-    .tagContainer{
-        display: flex;
-        flex-wrap: wrap;
-      
-        gap:$s4;
-      
-    }
+    
 
 }

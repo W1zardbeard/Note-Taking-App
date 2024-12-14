@@ -25,7 +25,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
                 "Spingle", 
                 "Spangle"
             ],
-            date: "2021-07-01",
+            lastEditDate: "2021-07-01",
         },
         { 
             id: 2, 
@@ -35,7 +35,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
                 "Spingle", 
                 "Spangle"
             ],
-            date: "2021-07-01",
+            lastEditDate: "2021-07-01",
         },
     ];
     res.send(notes);

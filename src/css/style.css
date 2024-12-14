@@ -362,11 +362,6 @@ a:hover {
   border-radius: 8px;
   cursor: pointer;
 }
-.sidenav .navList .horizontalRule {
-  height: 1px;
-  width: 100%;
-  background-color: #E0E4EA;
-}
 
 .topHeader {
   width: 100%;
@@ -462,11 +457,6 @@ a:hover {
 .noteListItem .date {
   color: #2B303B;
 }
-.noteListItem .tagContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
 
 .tag {
   display: flex;
@@ -474,10 +464,106 @@ a:hover {
   padding-left: 8px;
   padding-top: 4px;
   padding-bottom: 4px;
+  align-items: center;
   background-color: #E0E4EA;
   flex: 0;
   border-radius: 4px;
   color: #0E121B;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.noteContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
+  flex: 1;
+}
+.noteContent .noteContentHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.noteContent .noteContentHeader .noteTitleInput {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.5px;
+  font-size: 1.5rem;
+  line-height: 29px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  border: none;
+  width: 100%;
+}
+.noteContent .noteContentHeader .noteTitleInput:focus {
+  outline: none;
+}
+.noteContent .noteContentHeader .detailsCont {
+  color: #2B303B;
+  display: flex;
+  align-items: center;
+}
+.noteContent .noteContentHeader .detailsCont .detailsTitleCont {
+  display: flex;
+  gap: 6px;
+  width: 115px;
+}
+.noteContent .noteContentHeader .detailsCont .detailsTitleCont .detailsIcon {
+  width: 16px;
+  filter: invert(13%) sepia(5%) saturate(3136%) hue-rotate(184deg) brightness(92%) contrast(83%);
+}
+.noteContent textarea {
+  resize: none;
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.noteContent textarea:focus {
+  outline: none;
+}
+
+.addTag {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: solid 1px #E0E4EA;
+  border-radius: 4px;
+}
+.addTag img {
+  width: 16px;
+}
+.addTag:hover {
+  border: solid 1px #CACFD8;
+  background-color: #F3F5F8;
+  cursor: pointer;
 }
 
 .loginPage {
@@ -502,4 +588,10 @@ a:hover {
 .dashboard .main .notePane {
   display: flex;
   flex: 1;
+}
+
+.horizontalRule {
+  height: 1px;
+  width: 100%;
+  background-color: #E0E4EA;
 }/*# sourceMappingURL=style.css.map */
