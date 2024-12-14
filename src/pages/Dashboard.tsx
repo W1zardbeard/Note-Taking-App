@@ -11,6 +11,7 @@ export default function Dashboard() {
 
     const [tags, setTags] = useState([]);
     const [search, setSearch] = useState("");
+    const [notes, setNotes] = useState([]);
 
     const navigate = useNavigate();
 
@@ -20,6 +21,20 @@ export default function Dashboard() {
             console.log(response.data);
             // Update the tags state with the fetched data
             setTags(response.data);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                // If the user is forbidden, redirect to the home page
+                navigate("/");
+            }
+        });
+
+
+        // Fetch user notes from the API
+        axios.get("/api/getUserNotes").then((response) => {
+            console.log(response.data);
+            // Update the notes state with the fetched data
+            setNotes(response.data);
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 403) {
@@ -49,7 +64,9 @@ export default function Dashboard() {
                 />
 
                 <div className='notePane'>
-                  <NoteList />
+                  <NoteList 
+                    notes={notes}
+                  />
                 </div>
             </div>
             

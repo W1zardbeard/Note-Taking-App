@@ -15,5 +15,31 @@ router.get("/getUserTags", authenticateToken, async (req, res) => {
     res.send(tags);
 });
 
+router.get("/getUserNotes", authenticateToken, async (req, res) => {
+    const notes = [
+        { 
+            id: 1, 
+            title: "Example note 1", 
+            content: "This is the first note",
+            tags: [
+                "Spingle", 
+                "Spangle"
+            ],
+            date: "2021-07-01",
+        },
+        { 
+            id: 2, 
+            title: "Example note 2", 
+            content: "This is the first note",
+            tags: [
+                "Spingle", 
+                "Spangle"
+            ],
+            date: "2021-07-01",
+        },
+    ];
+    res.send(notes);
+});
+
 
 export default router;
