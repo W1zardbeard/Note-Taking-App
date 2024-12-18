@@ -12,7 +12,7 @@ interface SideNavProps {
 
 export default function SideNav(props: SideNavProps){
 
-    console.log(props.tags);
+
     return(
         <div className="sidenav">
 

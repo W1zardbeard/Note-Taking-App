@@ -2,19 +2,28 @@ import {useState, useEffect} from 'react';
 
 import Tag from '../Tag';
 import AddTag from './AddTag';
+import SaveBar from './SaveBar';
 export default function NoteContent(props){
 
-    const [noteTitle, setNoteTitle] = useState("");
-    const [noteContent, setNoteContent] = useState("");
+    const [noteTitle, setNoteTitle] = useState(props.selectedNote?.noteTitle || "");  
+    const [noteContent, setNoteContent] = useState(props.selectedNote?.noteContent || "");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
 
     useEffect(() => {
-        setNoteTitle(props.note?.title);
-        setNoteContent(props.note?.content);
-        setNoteTags(props.note?.tags);
-        setNoteLastEditDate(props.note?.lastEditDate);
-    }, [props.note]);
+        console.log("Selected note: ", props.selectedNote);
+        setNoteTitle(props.selectedNote?.noteTitle || "");
+        setNoteContent(props.selectedNote?.noteContent || "");
+        setNoteTags(props.selectedNote?.noteTags);
+        setNoteLastEditDate(props.selectedNote?.noteLastEditDate);
+     
+    }, [props.selectedNote]);
+
+    function updateTitle(title: string){
+        setNoteTitle(title);
+        props.updateSelectedNote(title);
+
+    }
 
     return(
         <div className="noteContent">
@@ -23,8 +32,9 @@ export default function NoteContent(props){
                 <input 
                     type="text"
                     className="noteTitleInput"
+                    placeholder='Enter title here'
                     value={noteTitle}
-                    onChange={(e) => setNoteTitle(e.target.value)}
+                    onChange={(e) => updateTitle(e.target.value)}
                 />
                 <div className="detailsCont">
                     <div className="detailsTitleCont">
@@ -64,6 +74,10 @@ export default function NoteContent(props){
                 value={noteContent}
                 onChange={(e) => setNoteContent(e.target.value)}
             />
+
+            <SaveBar />
+
+
         </div>
 
 

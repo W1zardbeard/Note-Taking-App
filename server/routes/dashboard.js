@@ -16,27 +16,31 @@ router.get("/getUserTags", authenticateToken, async (req, res) => {
 });
 
 router.get("/getUserNotes", authenticateToken, async (req, res) => {
+    // const notes = [
+    //     { 
+    //         id: 1, 
+    //         title: "Example note 1", 
+    //         content: "This is the first note",
+    //         tags: [
+    //             "Spingle", 
+    //             "Spangle"
+    //         ],
+    //         lastEditDate: "2021-07-01",
+    //     },
+    //     { 
+    //         id: 2, 
+    //         title: "Example note 2", 
+    //         content: "This is the first note",
+    //         tags: [
+    //             "Spingle", 
+    //             "Spangle"
+    //         ],
+    //         lastEditDate: "2021-07-01",
+    //     },
+    // ];
+
     const notes = [
-        { 
-            id: 1, 
-            title: "Example note 1", 
-            content: "This is the first note",
-            tags: [
-                "Spingle", 
-                "Spangle"
-            ],
-            lastEditDate: "2021-07-01",
-        },
-        { 
-            id: 2, 
-            title: "Example note 2", 
-            content: "This is the first note",
-            tags: [
-                "Spingle", 
-                "Spangle"
-            ],
-            lastEditDate: "2021-07-01",
-        },
+       
     ];
     res.send(notes);
 });

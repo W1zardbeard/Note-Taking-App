@@ -3,21 +3,23 @@ import Tag from './Tag';
 export default function NoteListItem(props:any){
     return(
         <div className="noteListItem">
-            <h3 className="noteTitle">{props.note.title}</h3>
+            <h3 className="noteTitle">{props.note.noteTitle}</h3>
             <div className='tagContainer'>
-                {props.note.tags?.length > 0 ?
-                    props.note.tags.map((tag, index) => (
+                {props.note.noteTags?.length > 0 ?
+                    props.note.noteTags.map((tag, index) => (
                         <Tag 
                             key={index}
                             tag={tag}
                         />
                     ))
                 :
-                null
+                <Tag 
+                    tag="No tags"
+                />
                 }
                 
             </div>
-            <p className='pSmall date'>{props.note.lastEditDate}</p>
+            <p className='pSmall date'>{props.note.noteLastEditDate}</p>
         </div>
     )
 }

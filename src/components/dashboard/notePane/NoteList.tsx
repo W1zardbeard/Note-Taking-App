@@ -2,13 +2,16 @@ import CTA from "../../CTA";
 import NoteListItem from "./NoteListItem";
 
 export default function NoteList(props){
+
+    
     return(
         <div className="noteList">
             <CTA
                 text="Create new note"
                 style="primary"
                 type="submit"
-                fullWidth={true}    
+                fullWidth={true} 
+                clickHandler={props.createNewNote}   
             />
 
             <div className="noteListContainer">
@@ -20,7 +23,9 @@ export default function NoteList(props){
                         />
                     ))
                 :
-                <p>No notes available</p>
+                <div className="emptyNoteList">
+                    <p>You don’t have any notes yet. Start a new note to capture your thoughts and ideas.</p>
+                </div>    
                 }
                 
              

@@ -292,6 +292,15 @@ button:disabled {
   background-color: #2547D0;
 }
 
+.btnSecondary {
+  background-color: #F3F5F8;
+  border: none;
+  color: #525866;
+}
+.btnSecondary:hover {
+  background-color: #E0E4EA;
+}
+
 .fullWidth {
   width: 100%;
 }
@@ -440,6 +449,12 @@ a:hover {
   flex-direction: column;
   gap: 4px;
 }
+.noteList .noteListContainer .emptyNoteList {
+  background-color: #F3F5F8;
+  padding: 8px;
+  border-radius: 8px;
+  color: #0E121B;
+}
 
 .noteListItem {
   display: flex;
@@ -459,14 +474,11 @@ a:hover {
 }
 
 .tag {
-  display: flex;
   padding-right: 8px;
   padding-left: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  align-items: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
   background-color: #E0E4EA;
-  flex: 0;
   border-radius: 4px;
   color: #0E121B;
 }
@@ -564,6 +576,14 @@ a:hover {
   border: solid 1px #CACFD8;
   background-color: #F3F5F8;
   cursor: pointer;
+}
+
+.saveBar {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  border-top: 1px solid #E0E4EA;
+  padding-top: 16px;
 }
 
 .loginPage {

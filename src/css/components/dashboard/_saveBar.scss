@@ -1,0 +1,9 @@
+.saveBar{
+    display:flex;
+    flex-direction: row;
+    gap:$s16;
+
+    border-top: 1px solid $Neutral200;
+
+    padding-top:$s16;
+}
