@@ -3,28 +3,20 @@ import {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 
 import SideNav from '../components/dashboard/sideNav/SideNav.tsx';
-import TopHeader from '../components/dashboard/topHeader/TopHeader';
-import NoteList from '../components/dashboard/notePane/NoteList';
-import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent';
+import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
+import NoteList from '../components/dashboard/notePane/NoteList.tsx';
+import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
 
-interface Tag {
-    id: string;
-    name: string;
-  }
-  
-  interface Note {
-    noteTitle: string;
-    noteContent: string;
-    noteTags: string[];
-    noteLastEditDate: string;
-  }
+
 
 export default function Dashboard() {
 
-    const [tags, setTags] = useState<Tag[]>([]);
+ 
+
+    const [tags, setTags] = useState([]);
     const [search, setSearch] = useState("");
-    const [notes, setNotes] = useState<Note[]>([]);
-    const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+    const [notes, setNotes] = useState([]);
+    const [selectedNote, setSelectedNote] = useState();
 
     const navigate = useNavigate();
 
@@ -57,27 +49,67 @@ export default function Dashboard() {
     }, []);
 
 
-    function searchGetter(search:string){
+    function searchGetter(search){
         setSearch(search);
     }
 
+    /**
+     * Creates a new note with default values and updates the state.
+     * 
+     * The new note object contains the following properties:
+     * - noteId: A unique identifier for the note, based on the current number of notes.
+     * - noteTitle: An empty string representing the title of the note.
+     * - noteContent: An empty string representing the content of the note.
+     * - noteTags: An empty array representing the tags associated with the note.
+     * - noteLastEditDate: The current date in a localized string format.
+     * 
+     * The function updates the state by adding the new note to the existing list of notes
+     * and sets the newly created note as the selected note.
+     */
     function createNewNote(){
         const newNote = {
+            noteId: notes.length + 1,
             noteTitle: "",
             noteContent: "",
             noteTags: [],
             noteLastEditDate: new Date().toLocaleDateString()
           };
           setNotes([...notes, newNote]);
-          setSelectedNote(newNote);
+          setSelectedNote(newNote.noteId);
     }
 
-    function updateSelectedNote(title: string){
-            setSelectedNote(...selectedNote, noteTitle: title);
-        
+
+
+    
+
+    /**
+     * Updates the title of the selected note.
+     *
+     * @param {string} id - The ID of the note to update.
+     * @param {string} title - The new title for the selected note.
+     */
+    function updateSelectedNoteTitle(id, title){
+
+        const updatedNotes = notes.map((note) => {
+            if (note.noteId === selectedNote) {
+                return {
+                    ...note,
+                    noteTitle: title
+                };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
+   
     }
 
-    //Figure out how to update the note title here!!!!!!!!!!!!!!!!!!!
+
+    // function to set the selected note
+    function setSelected(id){
+        setSelectedNote(id);
+    }
+
+ 
 
    
 
@@ -94,14 +126,17 @@ export default function Dashboard() {
                 />
 
                 <div className='notePane'>
-                  <NoteList 
+                  <NoteList
+                    selectedNote={selectedNote} 
                     notes={notes}
                     createNewNote={createNewNote}
+                    setSelected={setSelected}
                   />
             	{notes.length > 0 &&
                   <NoteContent 
                     selectedNote={selectedNote}
-                    updateSelectedNote={updateSelectedNote}
+                    note={notes.filter((note) => note.noteId === selectedNote)[0]}
+                    updateSelectedNoteTitle={updateSelectedNoteTitle}
                   />
                 }
                 </div>

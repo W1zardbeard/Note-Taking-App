@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import ErrorPage from "./pages/ErrorPage";
 import SignUp from "./pages/SignUp";
 import Sendtest from "./pages/Sendtest";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard.jsx";
 
 
 const router = createBrowserRouter([

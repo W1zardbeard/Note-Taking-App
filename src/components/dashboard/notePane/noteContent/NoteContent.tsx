@@ -5,24 +5,24 @@ import AddTag from './AddTag';
 import SaveBar from './SaveBar';
 export default function NoteContent(props){
 
-    const [noteTitle, setNoteTitle] = useState(props.selectedNote?.noteTitle || "");  
-    const [noteContent, setNoteContent] = useState(props.selectedNote?.noteContent || "");
+    const [noteId, setNoteId] = useState(props.selectedNote || "");
+    const [noteTitle, setNoteTitle] = useState(props.note?.noteTitle || "");  
+    const [noteContent, setNoteContent] = useState(props.note?.noteContent || "");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
 
     useEffect(() => {
-        console.log("Selected note: ", props.selectedNote);
-        setNoteTitle(props.selectedNote?.noteTitle || "");
-        setNoteContent(props.selectedNote?.noteContent || "");
-        setNoteTags(props.selectedNote?.noteTags);
-        setNoteLastEditDate(props.selectedNote?.noteLastEditDate);
+        setNoteId(props.selectedNote);
+        setNoteTitle(props.note?.noteTitle || "");
+        setNoteContent(props.note?.noteContent || "");
+        setNoteTags(props.note?.noteTags);
+        setNoteLastEditDate(props.note?.noteLastEditDate);
      
     }, [props.selectedNote]);
 
     function updateTitle(title: string){
         setNoteTitle(title);
-        props.updateSelectedNote(title);
-
+        props.updateSelectedNoteTitle(noteId, title);
     }
 
     return(

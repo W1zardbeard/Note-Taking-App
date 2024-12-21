@@ -15,12 +15,16 @@ export default function NoteList(props){
             />
 
             <div className="noteListContainer">
+                
+               
                 {props.notes?.length > 0 ?
                     props.notes.map((note, index) => (
                         <NoteListItem 
                             key={index}
                             note={note}
+                            setSelected={props.setSelected}
                         />
+                        
                     ))
                 :
                 <div className="emptyNoteList">
