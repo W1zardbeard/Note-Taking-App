@@ -1,0 +1,67 @@
+.noteContent{
+    display:flex;
+    flex-direction: column;
+    gap:$s16;
+
+    padding-top:$s20;
+    padding-bottom: $s20;
+    padding-left:$s24;
+    padding-right:$s24;
+
+    flex:1;
+
+    .noteContentHeader{
+        display: flex;
+        flex-direction: column;
+        gap:$s16;
+
+
+        .noteTitleInput{
+            @include font(1.5rem, 700, -0.5px, 29px);
+            border:none;
+            width:100%;
+    
+            &:focus{
+                outline:none;
+               
+            }
+        }
+
+
+        .detailsCont{
+            color:$Neutral700;
+            display:flex;
+            align-items: center;
+            .detailsTitleCont{
+                display:flex;
+                gap:$s6;
+                width:115px;
+                .detailsIcon{
+                    width:16px;
+                    filter: invert(13%) sepia(5%) saturate(3136%) hue-rotate(184deg) brightness(92%) contrast(83%);
+                }
+
+                p{
+
+                }
+            }
+        }
+    }
+
+    textarea{
+        resize: none;
+        flex:1;
+        box-sizing: border-box;
+        width:100%;
+        max-width: 100%;
+        border: none;
+        @include font(0.875rem, 400, 0, 18px);
+        &:focus{
+            outline:none;
+           
+        }
+    }
+
+    
+
+}

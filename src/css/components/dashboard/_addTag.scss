@@ -1,0 +1,24 @@
+.addTag{
+    display:flex;
+    gap:$s2;
+    justify-content: center	;
+    align-items: center;
+    padding-right:$s8;
+    padding-left:$s8;
+    padding-top:$s4;
+    padding-bottom:$s4;
+
+
+    border:solid 1px $Neutral200;
+    border-radius: $r4;
+    
+    img{
+        width:16px;
+    }
+
+    &:hover{
+        border:solid 1px $Neutral300;
+        background-color: $Neutral100;
+        cursor: pointer;
+    }
+}

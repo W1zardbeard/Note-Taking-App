@@ -11,6 +11,15 @@
 @import "./components/login/floatingCard";
 @import "./components/input";
 @import "./components/CTA";
+@import "./components/dashboard/sidenav";
+@import "./components/dashboard/topHeader";
+@import "./components/dashboard/searchBar"; 
+@import "./components/dashboard/noteList";
+@import "./components/dashboard/noteListItem";
+@import "./components/dashboard/tag";
+@import "./components/dashboard/noteContent";
+@import "./components/dashboard/addTag";
+@import "./components/dashboard/saveBar";
 
 
 
@@ -19,6 +28,7 @@
 
 //Pages
 @import "./pages/login";
+@import "./pages/dashboard";
 
 
 //Themes

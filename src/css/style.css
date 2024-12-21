@@ -80,7 +80,7 @@ h2 {
 h3 {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   letter-spacing: 0;
   font-size: 1rem;
@@ -292,6 +292,15 @@ button:disabled {
   background-color: #2547D0;
 }
 
+.btnSecondary {
+  background-color: #F3F5F8;
+  border: none;
+  color: #525866;
+}
+.btnSecondary:hover {
+  background-color: #E0E4EA;
+}
+
 .fullWidth {
   width: 100%;
 }
@@ -321,6 +330,262 @@ a:hover {
   text-decoration: underline;
 }
 
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  color: #2B303B;
+  gap: 16px;
+  width: 272px;
+  height: 100%;
+  border-right: 1px solid #E0E4EA;
+}
+.sidenav .navList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sidenav .navList .navHeader {
+  color: #717784;
+}
+.sidenav .navList .navItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sidenav .navList .navItem {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 100%;
+}
+.sidenav .navList .navItem:hover {
+  background-color: #F5F7FA;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.topHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E0E4EA;
+  color: #0E121B;
+}
+.topHeader div {
+  display: flex;
+  gap: 16px;
+}
+.topHeader div .settingsButton {
+  background-color: #FFFFFF;
+  border: none;
+}
+.topHeader div .settingsButton img {
+  filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+}
+.topHeader div .settingsButton:hover img {
+  filter: invert(30%) sepia(34%) saturate(7429%) hue-rotate(225deg) brightness(102%) contrast(101%);
+}
+
+.searchBar {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 1px solid #CACFD8;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.searchBar img {
+  filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+}
+.searchBar input {
+  border-style: none;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: #0E121B;
+}
+.searchBar input:focus {
+  outline: none;
+}
+
+.noteList {
+  width: 290px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #E0E4EA;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 20px;
+  gap: 16px;
+}
+.noteList .noteListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.noteList .noteListContainer .emptyNoteList {
+  background-color: #F3F5F8;
+  padding: 8px;
+  border-radius: 8px;
+  color: #0E121B;
+}
+
+.noteListItem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E0E4EA;
+}
+.noteListItem h3 {
+  color: #0E121B;
+}
+.noteListItem .date {
+  color: #2B303B;
+}
+
+.tag {
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: #E0E4EA;
+  border-radius: 4px;
+  color: #0E121B;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.noteContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
+  flex: 1;
+}
+.noteContent .noteContentHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.noteContent .noteContentHeader .noteTitleInput {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.5px;
+  font-size: 1.5rem;
+  line-height: 29px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  border: none;
+  width: 100%;
+}
+.noteContent .noteContentHeader .noteTitleInput:focus {
+  outline: none;
+}
+.noteContent .noteContentHeader .detailsCont {
+  color: #2B303B;
+  display: flex;
+  align-items: center;
+}
+.noteContent .noteContentHeader .detailsCont .detailsTitleCont {
+  display: flex;
+  gap: 6px;
+  width: 115px;
+}
+.noteContent .noteContentHeader .detailsCont .detailsTitleCont .detailsIcon {
+  width: 16px;
+  filter: invert(13%) sepia(5%) saturate(3136%) hue-rotate(184deg) brightness(92%) contrast(83%);
+}
+.noteContent textarea {
+  resize: none;
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.noteContent textarea:focus {
+  outline: none;
+}
+
+.addTag {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: solid 1px #E0E4EA;
+  border-radius: 4px;
+}
+.addTag img {
+  width: 16px;
+}
+.addTag:hover {
+  border: solid 1px #CACFD8;
+  background-color: #F3F5F8;
+  cursor: pointer;
+}
+
+.saveBar {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  border-top: 1px solid #E0E4EA;
+  padding-top: 16px;
+}
+
 .loginPage {
   height: 100vh;
   display: flex;
@@ -328,4 +593,25 @@ a:hover {
   align-items: center;
   flex-direction: column;
   background-color: #F3F5F8;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+.dashboard .main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard .main .notePane {
+  display: flex;
+  flex: 1;
+}
+
+.horizontalRule {
+  height: 1px;
+  width: 100%;
+  background-color: #E0E4EA;
 }/*# sourceMappingURL=style.css.map */

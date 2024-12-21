@@ -1,0 +1,27 @@
+.noteList{
+    width:290px;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+
+    
+    border-right: 1px solid $Neutral200;
+
+    padding-left:$s32;
+    padding-right:$s32;
+    padding-top:$s20;
+    gap:$s16;
+
+    .noteListContainer{
+        display:flex;
+        flex-direction: column;
+        gap:$s4; 
+
+        .emptyNoteList{
+            background-color:$Neutral100;
+            padding:$s8;
+            border-radius:$r8;
+            color:$Neutral950
+        }
+    }
+}

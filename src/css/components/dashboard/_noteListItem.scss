@@ -1,0 +1,24 @@
+.noteListItem{
+
+    display:flex;
+    flex-direction: column;
+    gap:$s12;
+
+    padding-left:$s8;
+    padding-right:$s8;
+    padding-top:$s8;
+    padding-bottom: $s8;
+
+    border-bottom: 1px solid $Neutral200;
+
+    h3{
+        color:$Neutral950;
+    }
+
+    .date{
+        color:$Neutral700;
+    }
+
+    
+
+}

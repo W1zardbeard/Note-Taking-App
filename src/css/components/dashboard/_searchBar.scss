@@ -1,0 +1,33 @@
+.searchBar{
+    padding-top:$s12;
+    padding-bottom:$s12;
+    padding-left:$s16;
+    padding-right:$s16;
+    
+    border:1px solid $Neutral300;
+    border-radius: $r8;
+    display:flex;
+    justify-content: space-between;
+    gap:$s8;
+
+    img{
+        filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+    }
+    
+
+    input{
+        
+        border-style: none;
+        width:100%;
+        @include font(0.875rem, 400, 0, 18px);
+        color:$Neutral950;
+
+        &::placeholder{
+            // color:$darkGrey;
+        }
+        
+        &:focus{
+            outline: none;
+        }
+    }
+}

@@ -29,6 +29,16 @@ button{
     }
 }
 
+.btnSecondary{
+    background-color:$Neutral100;
+    border:none;
+    color:$Neutral600;
+
+    &:hover{
+        background-color:$Neutral200;
+    }
+}
+
 .fullWidth{
     width:100%;
 }

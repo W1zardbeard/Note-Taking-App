@@ -1,0 +1,38 @@
+.topHeader{
+    
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left:$s32;
+    padding-right:$s32;
+    padding-top:$s16;
+    padding-bottom:$s16;
+    
+    border-bottom: 1px solid $Neutral200;
+
+    color:$Neutral950;
+
+    div{
+        display:flex;
+        gap:$s16;
+        .settingsButton{
+            background-color:$white;
+            border:none;
+    
+            img{
+                filter: invert(50%) sepia(20%) saturate(234%) hue-rotate(183deg) brightness(88%) contrast(88%);
+            }
+
+            &:hover{
+                img{
+                    filter: invert(30%) sepia(34%) saturate(7429%) hue-rotate(225deg) brightness(102%) contrast(101%);
+                }
+            }
+        }
+    }
+
+    
+}
