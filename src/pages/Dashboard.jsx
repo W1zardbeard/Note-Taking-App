@@ -1,11 +1,14 @@
 import axios from 'axios';
 import {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import SideNav from '../components/dashboard/sideNav/SideNav.tsx';
 import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
 import NoteList from '../components/dashboard/notePane/NoteList.tsx';
 import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
+import TagModal from '../components/TagModal.jsx';
 
 
 
@@ -17,6 +20,8 @@ export default function Dashboard() {
     const [search, setSearch] = useState("");
     const [notes, setNotes] = useState([]);
     const [selectedNote, setSelectedNote] = useState();
+
+    const [isOpenTagModal, setIsOpenTagModal] = useState(false);
 
     const navigate = useNavigate();
 
@@ -53,6 +58,9 @@ export default function Dashboard() {
         setSearch(search);
     }
 
+
+
+
     /**
      * Creates a new note with default values and updates the state.
      * 
@@ -78,6 +86,8 @@ export default function Dashboard() {
           setSelectedNote(newNote.noteId);
     }
 
+    
+
 
 
     
@@ -89,7 +99,6 @@ export default function Dashboard() {
      * @param {string} title - The new title for the selected note.
      */
     function updateSelectedNoteTitle(id, title){
-
         const updatedNotes = notes.map((note) => {
             if (note.noteId === selectedNote) {
                 return {
@@ -100,13 +109,67 @@ export default function Dashboard() {
             return note;
         });
         setNotes(updatedNotes);
-   
     }
+
+    /**
+     * Updates the content of the selected note.
+     *
+     * @param {string} id - The ID of the note to update.
+     * @param {string} content - The new content for the note.
+     */
+    function updateSelectedNoteContent(id, content){
+        const updatedNotes = notes.map((note) => {
+            if (note.noteId === selectedNote) {
+                return {
+                    ...note,
+                    noteContent: content
+                };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
+    }
+
+
+    function addNewTag(id, tag){ 
+        const updatedNotes = notes.map((note) => {
+            if (note.noteId === selectedNote) {
+                return {
+                    ...note,
+                    noteTags: [...note.noteTags, tag]
+                };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
+    }
+    
 
 
     // function to set the selected note
     function setSelected(id){
         setSelectedNote(id);
+    }
+
+
+
+    function saveNote(){
+        let note = notes.filter((note) => note.noteId === selectedNote);
+        axios.post("/api/saveNote", {note})
+        .then((response) => {
+            console.log(response);
+            toast.success("Note saved successfully",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Failed to save note",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        });
     }
 
  
@@ -137,11 +200,21 @@ export default function Dashboard() {
                     selectedNote={selectedNote}
                     note={notes.filter((note) => note.noteId === selectedNote)[0]}
                     updateSelectedNoteTitle={updateSelectedNoteTitle}
+                    updateSelectedNoteContent={updateSelectedNoteContent}
+                    saveNote={saveNote}
+                    newTag={setIsOpenTagModal}
                   />
                 }
                 </div>
             </div>
-            
+            <ToastContainer />
+            {isOpenTagModal && 
+                <TagModal 
+                    setIsOpenTagModal={setIsOpenTagModal}
+                    selectedNote={selectedNote}
+                    addNewTag={addNewTag}
+                />
+            }
         </div>
     )
 }

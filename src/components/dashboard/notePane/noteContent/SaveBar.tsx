@@ -7,7 +7,8 @@ export default function SaveBar(props){
                 text="Save Note"
                 style="primary"
                 type="submit"
-                fullWidth={false}    
+                fullWidth={false}
+                clickHandler={props.saveNote}    
             />
 
             <CTA

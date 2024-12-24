@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import CTA from "../components/CTA";
+import TagModal from "../components/TagModal";
 
 
 export default function Sendtest() {
@@ -8,6 +9,8 @@ export default function Sendtest() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [isOpenTagModal, setIsOpenTagModal] = useState(false);
 
     function handleChange(event){
         const{name, value} = event.target;
@@ -40,6 +43,12 @@ export default function Sendtest() {
 
 
     }
+
+    
+    function openModal(){
+        setIsOpenTagModal(true);
+    }
+
     return (
         <div className="inputGroup">
         <form name="loginForm" onSubmit={handleSignUp}>
@@ -67,11 +76,17 @@ export default function Sendtest() {
             </div>
 
             <CTA
-                text="Sign up"
+                text="Open modal"
                 style="primary"
                 type="submit"
                 fullWidth={true}    
+                clickHandler={openModal}
             />
+            {isOpenTagModal && 
+            <TagModal 
+                setIsOpenTagModal={setIsOpenTagModal}
+            />
+            }
         </form>
     </div>
     )

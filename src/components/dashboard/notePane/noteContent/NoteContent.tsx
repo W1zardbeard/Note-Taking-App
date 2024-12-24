@@ -3,16 +3,21 @@ import {useState, useEffect} from 'react';
 import Tag from '../Tag';
 import AddTag from './AddTag';
 import SaveBar from './SaveBar';
+
+
 export default function NoteContent(props){
 
+    // State
     const [noteId, setNoteId] = useState(props.selectedNote || "");
     const [noteTitle, setNoteTitle] = useState(props.note?.noteTitle || "");  
     const [noteContent, setNoteContent] = useState(props.note?.noteContent || "");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
 
+    // Update note on load
     useEffect(() => {
         setNoteId(props.selectedNote);
+
         setNoteTitle(props.note?.noteTitle || "");
         setNoteContent(props.note?.noteContent || "");
         setNoteTags(props.note?.noteTags);
@@ -20,9 +25,22 @@ export default function NoteContent(props){
      
     }, [props.selectedNote]);
 
+
+    //update note tags
+    useEffect(() => {
+        setNoteTags(props.note?.noteTags);
+    }, [props.note?.noteTags]);
+
+    // Update note title
     function updateTitle(title: string){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
+    }
+
+    // Update note content
+    function updateContent(content: string){
+        setNoteContent(content);
+        props.updateSelectedNoteContent(noteId, content);
     }
 
     return(
@@ -52,7 +70,9 @@ export default function NoteContent(props){
                         :
                         null
                         }
-                        <AddTag />
+                        <AddTag 
+                            openTagModal={props.newTag}
+                        />
                     </div>
                 </div>
 
@@ -72,10 +92,12 @@ export default function NoteContent(props){
             <div className="horizontalRule"></div>
             <textarea
                 value={noteContent}
-                onChange={(e) => setNoteContent(e.target.value)}
+                onChange={(e) => updateContent(e.target.value)}
             />
 
-            <SaveBar />
+            <SaveBar 
+                saveNote={props.saveNote}
+            />
 
 
         </div>
