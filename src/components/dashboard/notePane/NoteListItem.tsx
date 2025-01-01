@@ -6,14 +6,17 @@ export default function NoteListItem(props:any){
         console.log("Selected note: ", props.note);
         props.setSelected(props.note.noteId);
     }
+
+    const lastEditDate = props.note?.lasteditdate.substr(0, 10);
+
     return(
         <div 
             onClick={() => setSelected()}
             className="noteListItem">
-                <h3 className="noteTitle">{props.note?.noteTitle}</h3>
+                <h3 className="noteTitle">{props.note?.title}</h3>
                 <div className='tagContainer'>
-                    {props.note?.noteTags.length > 0 ?
-                        props.note?.noteTags.map((tag, index) => (
+                    {props.note?.tags.length > 0 ?
+                        props.note?.tags.map((tag, index) => (
                             <Tag 
                                 key={index}
                                 tag={tag}
@@ -26,7 +29,7 @@ export default function NoteListItem(props:any){
                     }
                     
                 </div>
-                <p className='pSmall date'>{props.note?.noteLastEditDate}</p>
+                <p className='pSmall date'>{lastEditDate}</p>
         </div>
     )
 }
