@@ -9,8 +9,8 @@ export default function NoteContent(props){
 
     // State
     const [noteId, setNoteId] = useState(props.selectedNote || "");
-    const [noteTitle, setNoteTitle] = useState(props.note?.noteTitle || "");  
-    const [noteContent, setNoteContent] = useState(props.note?.noteContent || "");
+    const [noteTitle, setNoteTitle] = useState(props.note?.title || "");  
+    const [noteContent, setNoteContent] = useState(props.note?.content || "");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
 
@@ -18,29 +18,31 @@ export default function NoteContent(props){
     useEffect(() => {
         setNoteId(props.selectedNote);
 
-        setNoteTitle(props.note?.noteTitle || "");
-        setNoteContent(props.note?.noteContent || "");
-        setNoteTags(props.note?.noteTags);
-        setNoteLastEditDate(props.note?.noteLastEditDate);
+        setNoteTitle(props.note?.title || "");
+        setNoteContent(props.note?.content || "");
+        setNoteTags(props.note?.tags);
+        setNoteLastEditDate(props.note?.lasteditdate.substr(0, 10));
      
     }, [props.selectedNote]);
 
 
     //update note tags
     useEffect(() => {
-        setNoteTags(props.note?.noteTags);
-    }, [props.note?.noteTags]);
+        setNoteTags(props.note?.tags);
+    }, [props.note?.tags]);
 
     // Update note title
     function updateTitle(title: string){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
+        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
     }
 
     // Update note content
     function updateContent(content: string){
         setNoteContent(content);
         props.updateSelectedNoteContent(noteId, content);
+        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
     }
 
     return(

@@ -44,6 +44,12 @@ export default function Dashboard() {
             console.log(response.data);
             // Update the notes state with the fetched data
             setNotes(response.data);
+
+            //if there are notes, set the first note as the selected note
+            if (response.data.length > 0) {
+                setSelectedNote(response.data[0].noteId);
+            }
+            console.log(response.data);
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 403) {
@@ -76,11 +82,12 @@ export default function Dashboard() {
      */
     function createNewNote(){
         const newNote = {
+            id: null,
             noteId: notes.length + 1,
-            noteTitle: "",
-            noteContent: "",
-            noteTags: [],
-            noteLastEditDate: new Date().toLocaleDateString()
+            title: "",
+            content: "",
+            tags: [],
+            lastEditDate: new Date().toLocaleDateString()
           };
           setNotes([...notes, newNote]);
           setSelectedNote(newNote.noteId);
@@ -103,7 +110,7 @@ export default function Dashboard() {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    noteTitle: title
+                    title: title
                 };
             }
             return note;
@@ -122,7 +129,7 @@ export default function Dashboard() {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    noteContent: content
+                    content: content
                 };
             }
             return note;
@@ -136,7 +143,7 @@ export default function Dashboard() {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    noteTags: [...note.noteTags, tag]
+                    tags: [...note.tags, tag]
                 };
             }
             return note;
@@ -154,8 +161,9 @@ export default function Dashboard() {
 
 
     function saveNote(){
-        let note = notes.filter((note) => note.noteId === selectedNote);
-        axios.post("/api/saveNote", {note})
+        const saveNote = notes.find((note) => note.noteId === selectedNote);
+        console.log(saveNote);
+        axios.post("/api/saveNote", {saveNote})
         .then((response) => {
             console.log(response);
             toast.success("Note saved successfully",{
