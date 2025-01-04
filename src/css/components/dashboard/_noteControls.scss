@@ -1,0 +1,12 @@
+.noteControls{
+    width:240px;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    border-left:1px solid $Neutral200;
+    padding-left:$s16;
+    padding-right:$s16;
+    padding-top:$s20;
+    gap:$s16;
+
+}
