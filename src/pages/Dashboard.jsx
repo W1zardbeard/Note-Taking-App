@@ -9,6 +9,7 @@ import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
 import NoteList from '../components/dashboard/notePane/NoteList.tsx';
 import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
 import TagModal from '../components/TagModal.jsx';
+import NoteControls from '../components/dashboard/notePane/NoteControls.jsx';
 
 
 
@@ -26,8 +27,14 @@ export default function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch user tags from the API
-        axios.get("/api/getUserTags").then((response) => {
+        getTags();
+        getNotes();
+    }, []);
+
+
+    function getTags(){
+         // Fetch user tags from the API
+         axios.get("/api/getUserTags").then((response) => {
             // Update the tags state with the fetched data
             setTags(response.data);
         }).catch((error) => {
@@ -37,8 +44,9 @@ export default function Dashboard() {
                 navigate("/");
             }
         });
+    }
 
-
+    function getNotes(){
         // Fetch user notes from the API
         axios.get("/api/getUserNotes").then((response) => {
             console.log(response.data);
@@ -57,7 +65,7 @@ export default function Dashboard() {
                 navigate("/");
             }
         });
-    }, []);
+    }
 
 
     function searchGetter(search){
@@ -87,7 +95,8 @@ export default function Dashboard() {
             title: "",
             content: "",
             tags: [],
-            lastEditDate: new Date().toLocaleDateString()
+            lasteditdate: new Date().toLocaleDateString(),
+            isarchived: false
           };
           setNotes([...notes, newNote]);
           setSelectedNote(newNote.noteId);
@@ -138,6 +147,21 @@ export default function Dashboard() {
     }
 
 
+    // function to update the last edit date of the selected note
+    function updateSelectedNoteLastEditDate(id, date){
+        const updatedNotes = notes.map((note) => {
+            if (note.noteId === selectedNote) {
+                return {
+                    ...note,
+                    lasteditdate: date
+                };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
+    }
+
+    // function to add a new tag to the selected note
     function addNewTag(id, tag){ 
         const updatedNotes = notes.map((note) => {
             if (note.noteId === selectedNote) {
@@ -158,13 +182,13 @@ export default function Dashboard() {
         setSelectedNote(id);
     }
 
-
-
+    //function to save the selected note
     function saveNote(){
         const saveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(saveNote);
         axios.post("/api/saveNote", {saveNote})
         .then((response) => {
+            getTags();
             console.log(response);
             toast.success("Note saved successfully",{
                 autoClose: 2000,
@@ -174,6 +198,29 @@ export default function Dashboard() {
         .catch((error) => {
             console.log(error);
             toast.error("Failed to save note",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        });
+    }
+
+
+    //function to archive the selected note
+    function archiveNote(){
+        const archiveNote = notes.find((note) => note.noteId === selectedNote);
+        console.log(archiveNote);
+        axios.post("/api/archiveNote", {archiveNote})
+        .then((response) => {
+            getNotes();
+            console.log(response);
+            toast.success("Note archived successfully",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Failed to archive note",{
                 autoClose: 2000,
                 position: "top-center",
             });
@@ -192,7 +239,7 @@ export default function Dashboard() {
             <div className='main'>
                 <TopHeader 
                     tagPage={false}
-                    selectedPage="All notes"
+                    selectedPage={selectedPage}
                     searchGetter={searchGetter}
                 />
 
@@ -209,10 +256,14 @@ export default function Dashboard() {
                     note={notes.filter((note) => note.noteId === selectedNote)[0]}
                     updateSelectedNoteTitle={updateSelectedNoteTitle}
                     updateSelectedNoteContent={updateSelectedNoteContent}
+                    updateSelectedNoteLastEditDate={updateSelectedNoteLastEditDate}
                     saveNote={saveNote}
                     newTag={setIsOpenTagModal}
                   />
                 }
+                <NoteControls 
+                    archiveNote={archiveNote}
+                />
                 </div>
             </div>
             <ToastContainer />

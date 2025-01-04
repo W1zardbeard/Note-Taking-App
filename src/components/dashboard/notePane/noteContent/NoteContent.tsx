@@ -36,6 +36,7 @@ export default function NoteContent(props){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
         setNoteLastEditDate(new Date().toISOString().slice(0, 10));
+        props.updateSelectedNoteLastEditDate(noteId, noteLastEditDate);
     }
 
     // Update note content
@@ -43,6 +44,8 @@ export default function NoteContent(props){
         setNoteContent(content);
         props.updateSelectedNoteContent(noteId, content);
         setNoteLastEditDate(new Date().toISOString().slice(0, 10));
+        props.updateSelectedNoteLastEditDate(noteId, noteLastEditDate);
+       
     }
 
     return(

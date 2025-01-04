@@ -19,7 +19,7 @@ router.get("/getUserTags", authenticateToken, async (req, res) => {
             "SELECT name, id FROM tags WHERE user_id = $1",
             [userId]
         );
-       console.log(tagResult.rows);
+      
         res.send(tagResult.rows);
     } catch (err) {
         // Log any errors that occur and send a 500 status code
@@ -42,7 +42,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
     try {
         // Query the database to get notes for the user with the specified userId
         const notesResult = await db.query(
-            "SELECT id, title, content, lastEditDate FROM notes WHERE user_id = $1",
+            "SELECT id, title, content, lastEditDate, isarchived FROM notes WHERE user_id = $1",
             [userId]
         );
 
@@ -98,13 +98,17 @@ if (req.body.saveNote.id == null) {
         const content = req.body.saveNote.content;
         // Extract note tags from the request body (though not used in the query)
         const tags = req.body.saveNote.tags;
+        // Extract the note's last edit date from the request body
+        const lasteditdate = req.body.saveNote.lasteditdate;
+        // Extract the note's isArchived status from the request body
+        const isarchived = req.body.saveNote.isarchived;
 
-        console.log(tags);  
+      
 
         // Insert the new note into the database and return the inserted row
         const result = await db.query(
-            "INSERT INTO notes (title, content, user_id) VALUES ($1, $2, $3) RETURNING *",
-            [title, content, userId]
+            "INSERT INTO notes (title, content, user_id, lasteditdate, isarchived) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [title, content, userId, lasteditdate, isarchived]
         );
 
         const noteId = result.rows[0].id;
@@ -148,14 +152,18 @@ if (req.body.saveNote.id == null) {
         const tags = req.body.saveNote.tags;
         // Extract the note's dbId from the request body
         const id = req.body.saveNote.id;
+        // Extract the note's last edit date from the request body
+        const lasteditdate = req.body.saveNote.lasteditdate;
+        // Extract the note's isArchived status from the request body
+        const isarchived = req.body.saveNote.isarchived;
 
         // Update the existing note in the database with the new title and content
         const result = await db.query(
-            "UPDATE notes SET title = $1, content = $2 WHERE id = $3 RETURNING *",
-            [title, content, id]
+            "UPDATE notes SET title = $1, content = $2, lasteditdate = $3, isarchived = $4 WHERE id = $5 RETURNING *",
+            [title, content, lasteditdate, isarchived, id]
         );
 
-        console.log(result);
+     
 
         const noteId = result.rows[0].id;
 
@@ -187,6 +195,32 @@ if (req.body.saveNote.id == null) {
         res.status(500).send("Internal Server Error");
     }
 }
+});
+
+
+
+
+// ==========================
+// Route to archive note
+// ==========================
+
+
+router.post("/archiveNote", authenticateToken, async (req, res) => {
+    console.log(req.body);
+    
+    try{
+        const userId = req.user.data.userId;
+        const id = req.body.archiveNote.id;
+        const result = await db.query(
+            "UPDATE notes SET isarchived = true WHERE id = $1 RETURNING *",
+            [ id]
+        );
+        res.status(200).send("Note archived successfully");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+   
 });
 
 
