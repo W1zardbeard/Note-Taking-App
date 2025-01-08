@@ -39,6 +39,27 @@ button{
     }
 }
 
+
+.borderBtn{
+    border:1px solid $Neutral300;
+    background-color:$white;
+    color:$Neutral950;
+}
+
+.noteControl{
+    border:1px solid $Neutral300;
+    background-color:$white;
+    color:$Neutral950;
+    display: flex;
+    align-items: center;
+    gap:$s8;
+
+    &:hover{
+        background-color:$Neutral100;
+        cursor: pointer;
+    }
+}
+
 .fullWidth{
     width:100%;
 }

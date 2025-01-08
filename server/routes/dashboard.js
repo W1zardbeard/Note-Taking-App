@@ -19,7 +19,7 @@ router.get("/getUserTags", authenticateToken, async (req, res) => {
             "SELECT name, id FROM tags WHERE user_id = $1",
             [userId]
         );
-       console.log(tagResult.rows);
+      
         res.send(tagResult.rows);
     } catch (err) {
         // Log any errors that occur and send a 500 status code
@@ -42,7 +42,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
     try {
         // Query the database to get notes for the user with the specified userId
         const notesResult = await db.query(
-            "SELECT id, title, content, lastEditDate FROM notes WHERE user_id = $1",
+            "SELECT id, title, content, lastEditDate, isarchived FROM notes WHERE user_id = $1",
             [userId]
         );
 
@@ -102,7 +102,7 @@ if (req.body.saveNote.id == null) {
         const lasteditdate = req.body.saveNote.lasteditdate;
         
 
-        console.log(tags);  
+      
 
         // Insert the new note into the database and return the inserted row
         const result = await db.query(
@@ -162,7 +162,7 @@ if (req.body.saveNote.id == null) {
             [title, content, lasteditdate, id]
         );
 
-        console.log(result);
+     
 
         const noteId = result.rows[0].id;
 
@@ -194,6 +194,32 @@ if (req.body.saveNote.id == null) {
         res.status(500).send("Internal Server Error");
     }
 }
+});
+
+
+
+
+// ==========================
+// Route to archive note
+// ==========================
+
+
+router.post("/archiveNote", authenticateToken, async (req, res) => {
+    console.log(req.body);
+    
+    try{
+        const userId = req.user.data.userId;
+        const id = req.body.archiveNote.id;
+        const result = await db.query(
+            "UPDATE notes SET isarchived = true WHERE id = $1 RETURNING *",
+            [ id]
+        );
+        res.status(200).send("Note archived successfully");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+   
 });
 
 

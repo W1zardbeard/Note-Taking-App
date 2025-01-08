@@ -50,6 +50,24 @@ export default function CTA(props){
                 </button>
             )
             break;
+
+            case "noteControl":
+                return(
+                    <button 
+                        className={props.fullWidth ? "noteControl fullWidth" : "noteControl"} 
+                        type={props.type}
+                        disabled={props.disabled}
+                        onClick = {() => {
+                            if(props.clickHandler){
+                                props.clickHandler();
+                            }
+                        }}
+                    >
+                        <img src={props.icon} alt={props.text}/>
+                        {props.text}
+                    </button>
+                )
+                break;
     }
     
 }

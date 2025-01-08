@@ -9,6 +9,7 @@ import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
 import NoteList from '../components/dashboard/notePane/NoteList.tsx';
 import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
 import TagModal from '../components/TagModal.jsx';
+import NoteControls from '../components/dashboard/notePane/NoteControls.jsx';
 
 
 
@@ -182,8 +183,7 @@ export default function Dashboard() {
         setSelectedNote(id);
     }
 
-
-
+    //function to save the selected note
     function saveNote(){
         const saveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(saveNote);
@@ -219,6 +219,29 @@ export default function Dashboard() {
         });
     }
 
+
+    //function to archive the selected note
+    function archiveNote(){
+        const archiveNote = notes.find((note) => note.noteId === selectedNote);
+        console.log(archiveNote);
+        axios.post("/api/archiveNote", {archiveNote})
+        .then((response) => {
+            getNotes();
+            console.log(response);
+            toast.success("Note archived successfully",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Failed to archive note",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        });
+    }
+
  
 
    
@@ -231,7 +254,7 @@ export default function Dashboard() {
             <div className='main'>
                 <TopHeader 
                     tagPage={false}
-                    selectedPage="All notes"
+                    selectedPage={selectedPage}
                     searchGetter={searchGetter}
                 />
 
@@ -248,10 +271,14 @@ export default function Dashboard() {
                     note={notes.filter((note) => note.noteId === selectedNote)[0]}
                     updateSelectedNoteTitle={updateSelectedNoteTitle}
                     updateSelectedNoteContent={updateSelectedNoteContent}
+                    updateSelectedNoteLastEditDate={updateSelectedNoteLastEditDate}
                     saveNote={saveNote}
                     newTag={setIsOpenTagModal}
                   />
                 }
+                <NoteControls 
+                    archiveNote={archiveNote}
+                />
                 </div>
             </div>
             <ToastContainer />
