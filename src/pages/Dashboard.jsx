@@ -254,7 +254,7 @@ export default function Dashboard() {
             <div className='main'>
                 <TopHeader 
                     tagPage={false}
-                    selectedPage={selectedPage}
+                    // selectedPage={selectedPage}
                     searchGetter={searchGetter}
                 />
 
@@ -271,7 +271,7 @@ export default function Dashboard() {
                     note={notes.filter((note) => note.noteId === selectedNote)[0]}
                     updateSelectedNoteTitle={updateSelectedNoteTitle}
                     updateSelectedNoteContent={updateSelectedNoteContent}
-                    updateSelectedNoteLastEditDate={updateSelectedNoteLastEditDate}
+                   
                     saveNote={saveNote}
                     newTag={setIsOpenTagModal}
                   />
