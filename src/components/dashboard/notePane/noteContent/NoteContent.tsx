@@ -5,25 +5,25 @@ import AddTag from './AddTag';
 import SaveBar from './SaveBar';
 
 
+
+
 export default function NoteContent(props){
 
     // State
-    const [noteId, setNoteId] = useState(props.selectedNote || "");
-    const [noteTitle, setNoteTitle] = useState(props.note?.title || "");  
-    const [noteContent, setNoteContent] = useState(props.note?.content || "");
+    const [noteId, setNoteId] = useState("");
+    const [noteTitle, setNoteTitle] = useState("");  
+    const [noteContent, setNoteContent] = useState("");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
 
     // Update note on load
     useEffect(() => {
         setNoteId(props.selectedNote);
-
         setNoteTitle(props.note?.title || "");
         setNoteContent(props.note?.content || "");
         setNoteTags(props.note?.tags);
-        setNoteLastEditDate(props.note?.lasteditdate.substr(0, 10));
-     
-    }, [props.selectedNote]);
+        setNoteLastEditDate(props.note?.lasteditdate || "");
+    }, [props.note]);
 
 
     //update note tags
@@ -35,14 +35,16 @@ export default function NoteContent(props){
     function updateTitle(title: string){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
-        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
+       
+        
     }
 
     // Update note content
     function updateContent(content: string){
         setNoteContent(content);
         props.updateSelectedNoteContent(noteId, content);
-        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
+      
+     
     }
 
     return(

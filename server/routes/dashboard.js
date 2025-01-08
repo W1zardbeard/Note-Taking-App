@@ -98,14 +98,19 @@ if (req.body.saveNote.id == null) {
         const content = req.body.saveNote.content;
         // Extract note tags from the request body (though not used in the query)
         const tags = req.body.saveNote.tags;
+        //Extrast last edit date from the request body
+        const lasteditdate = req.body.saveNote.lasteditdate;
+        
 
         console.log(tags);  
 
         // Insert the new note into the database and return the inserted row
         const result = await db.query(
-            "INSERT INTO notes (title, content, user_id) VALUES ($1, $2, $3) RETURNING *",
-            [title, content, userId]
+            "INSERT INTO notes (title, content, user_id, lasteditdate) VALUES ($1, $2, $3, $4) RETURNING *",
+            [title, content, userId,lasteditdate]
         );
+
+
 
         const noteId = result.rows[0].id;
 
@@ -128,8 +133,8 @@ if (req.body.saveNote.id == null) {
 
 
 
-        // Send a success response to the client
-        res.status(200).send("Note saved successfully");
+        // Send a success response to the client with the noteId
+        res.status(200).json({ message: "Note saved successfully", noteId: noteId });
     } catch (err) {
         // Log any errors that occur during the database operation
         console.log(err);
@@ -148,11 +153,13 @@ if (req.body.saveNote.id == null) {
         const tags = req.body.saveNote.tags;
         // Extract the note's dbId from the request body
         const id = req.body.saveNote.id;
+        //Extrast last edit date from the request body
+        const lasteditdate = req.body.saveNote.lasteditdate;
 
         // Update the existing note in the database with the new title and content
         const result = await db.query(
-            "UPDATE notes SET title = $1, content = $2 WHERE id = $3 RETURNING *",
-            [title, content, id]
+            "UPDATE notes SET title = $1, content = $2, lasteditdate = $3 WHERE id = $4 RETURNING *",
+            [title, content, lasteditdate, id]
         );
 
         console.log(result);

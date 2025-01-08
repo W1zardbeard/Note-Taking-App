@@ -7,7 +7,7 @@ export default function NoteListItem(props:any){
         props.setSelected(props.note.noteId);
     }
 
-    const lastEditDate = props.note?.lasteditdate.substr(0, 10);
+    // const lastEditDate = props.note?.lasteditdate.substr(0, 10);
 
     return(
         <div 
@@ -29,7 +29,7 @@ export default function NoteListItem(props:any){
                     }
                     
                 </div>
-                <p className='pSmall date'>{lastEditDate}</p>
+                {/* <p className='pSmall date'>{lastEditDate}</p> */}
         </div>
     )
 }

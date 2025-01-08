@@ -26,6 +26,12 @@ export default function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        getUserTags();
+        getUserNotes();
+    }, []);
+
+
+    function getUserTags(){
         // Fetch user tags from the API
         axios.get("/api/getUserTags").then((response) => {
             // Update the tags state with the fetched data
@@ -37,10 +43,12 @@ export default function Dashboard() {
                 navigate("/");
             }
         });
+    }
 
 
-        // Fetch user notes from the API
-        axios.get("/api/getUserNotes").then((response) => {
+    function getUserNotes(){    
+          // Fetch user notes from the API
+          axios.get("/api/getUserNotes").then((response) => {
             console.log(response.data);
             // Update the notes state with the fetched data
             setNotes(response.data);
@@ -57,7 +65,7 @@ export default function Dashboard() {
                 navigate("/");
             }
         });
-    }, []);
+    }
 
 
     function searchGetter(search){
@@ -81,23 +89,31 @@ export default function Dashboard() {
      * and sets the newly created note as the selected note.
      */
     function createNewNote(){
+        const date = new Date().toLocaleString() ;
         const newNote = {
             id: null,
             noteId: notes.length + 1,
             title: "",
             content: "",
             tags: [],
-            lastEditDate: new Date().toLocaleDateString()
+            lasteditdate: date
           };
           setNotes([...notes, newNote]);
           setSelectedNote(newNote.noteId);
     }
 
-    
 
 
 
-    
+
+
+
+/*=======================================================*/
+//
+//  Functions to update the notes
+//
+/*=======================================================*/
+
 
     /**
      * Updates the title of the selected note.
@@ -110,7 +126,8 @@ export default function Dashboard() {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    title: title
+                    title: title,
+                    lasteditdate: new Date().toLocaleString()
                 };
             }
             return note;
@@ -129,7 +146,8 @@ export default function Dashboard() {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    content: content
+                    content: content,
+                    lasteditdate: new Date().toLocaleString()
                 };
             }
             return note;
@@ -138,6 +156,12 @@ export default function Dashboard() {
     }
 
 
+    /**
+     * Adds a new tag to the note with the specified ID.
+     *
+     * @param {string} id - The ID of the note to which the tag will be added.
+     * @param {string} tag - The tag to be added to the note.
+     */
     function addNewTag(id, tag){ 
         const updatedNotes = notes.map((note) => {
             if (note.noteId === selectedNote) {
@@ -164,8 +188,23 @@ export default function Dashboard() {
         const saveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(saveNote);
         axios.post("/api/saveNote", {saveNote})
+
+        
         .then((response) => {
-            console.log(response);
+            console.log(response.data.noteId);
+
+            const updatedNotes = notes.map((note) => {
+                if (note.noteId === selectedNote) {
+                    return {
+                        ...note,
+                        id: response.data.noteId,
+                    };
+                }
+                return note;
+            });
+            setNotes(updatedNotes);
+            getUserTags();
+
             toast.success("Note saved successfully",{
                 autoClose: 2000,
                 position: "top-center",
