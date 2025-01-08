@@ -35,27 +35,16 @@ export default function NoteContent(props){
     function updateTitle(title: string){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
-<<<<<<< HEAD
        
         
-=======
-        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
-        props.updateSelectedNoteLastEditDate(noteId, noteLastEditDate);
->>>>>>> bd6a459b8a906031dbb522f597993480a1cf9fc9
     }
 
     // Update note content
     function updateContent(content: string){
         setNoteContent(content);
         props.updateSelectedNoteContent(noteId, content);
-<<<<<<< HEAD
       
      
-=======
-        setNoteLastEditDate(new Date().toISOString().slice(0, 10));
-        props.updateSelectedNoteLastEditDate(noteId, noteLastEditDate);
-       
->>>>>>> bd6a459b8a906031dbb522f597993480a1cf9fc9
     }
 
     return(
