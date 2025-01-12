@@ -134,7 +134,7 @@ if (req.body.saveNote.id == null) {
 
 
         // Send a success response to the client with the noteId
-        res.status(200).json({ message: "Note saved successfully", noteId: noteId });
+        res.status(200).send("Note saved successfully");
     } catch (err) {
         // Log any errors that occur during the database operation
         console.log(err);

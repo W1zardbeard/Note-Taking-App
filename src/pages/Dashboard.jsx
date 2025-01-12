@@ -183,40 +183,34 @@ export default function Dashboard() {
         setSelectedNote(id);
     }
 
-    //function to save the selected note
-    function saveNote(){
+    // Function to save the selected note
+    function saveNote() {
+        // Find the note that matches the selected note ID
         const saveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(saveNote);
-        axios.post("/api/saveNote", {saveNote})
 
-        
-        .then((response) => {
-            console.log(response.data.noteId);
+        // Send a POST request to save the note to the server
+        axios.post("/api/saveNote", { saveNote })
+            .then((response) => {
+                // Fetch the updated list of notes and tags from the server
+                getUserNotes();
+                getUserTags();
 
-            const updatedNotes = notes.map((note) => {
-                if (note.noteId === selectedNote) {
-                    return {
-                        ...note,
-                        id: response.data.noteId,
-                    };
-                }
-                return note;
-            });
-            setNotes(updatedNotes);
-            getUserTags();
+                // Display a success message to the user
+                toast.success("Note saved successfully", {
+                    autoClose: 2000,
+                    position: "top-center",
+                });
+            })
+            .catch((error) => {
+                console.log(error);
 
-            toast.success("Note saved successfully",{
-                autoClose: 2000,
-                position: "top-center",
+                // Display an error message to the user if the save operation fails
+                toast.error("Failed to save note", {
+                    autoClose: 2000,
+                    position: "top-center",
+                });
             });
-        })
-        .catch((error) => {
-            console.log(error);
-            toast.error("Failed to save note",{
-                autoClose: 2000,
-                position: "top-center",
-            });
-        });
     }
 
 
