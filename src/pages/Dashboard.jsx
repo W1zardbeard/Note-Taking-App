@@ -3,12 +3,14 @@ import {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUserNotes } from '../components/dashboard/utils/getNotes.jsx';
 
 import SideNav from '../components/dashboard/sideNav/SideNav.tsx';
 import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
 import NoteList from '../components/dashboard/notePane/NoteList.tsx';
 import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
 import TagModal from '../components/TagModal.jsx';
+import DeleteModal from '../components/DeleteModal.jsx';
 import NoteControls from '../components/dashboard/notePane/NoteControls.jsx';
 
 
@@ -16,16 +18,38 @@ import NoteControls from '../components/dashboard/notePane/NoteControls.jsx';
 export default function Dashboard() {
 
  
-
+    // State to store the list of tags
     const [tags, setTags] = useState([]);
+
+    // State to store the search query
     const [search, setSearch] = useState("");
+
+    // State to store the list of notes
     const [notes, setNotes] = useState([]);
+
+    // State to store the ID of the selected note
     const [selectedNote, setSelectedNote] = useState();
+
+    // State to store the name of the selected page
     const [selectedPage, setSelectedPage] = useState("All notes");
 
+    // State to control the visibility of the tag modal
     const [isOpenTagModal, setIsOpenTagModal] = useState(false);
 
+    // State to control the visibility of the tag modal
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
+    // Hook to navigate programmatically
     const navigate = useNavigate();
+
+
+
+
+/*=======================================================*/
+//
+//  Get notes and tags
+//
+/*=======================================================*/
 
     useEffect(() => {
         getUserTags();
@@ -33,9 +57,38 @@ export default function Dashboard() {
     }, []);
 
 
-  
+    /**
+     * Fetches user notes from the API and updates the notes state.
+     * If the user is forbidden, redirects to the home page.
+     * Sets the first note as the selected note if there are any notes.
+     */
+    function getUserNotes(){    
+        // Fetch user notes from the API
+        setSelectedPage("All notes");
+        axios.get("/api/getUserNotes").then((response) => {
+          console.log(response.data);
+          // Update the notes state with the fetched data
+          setNotes(response.data);
+    
+          // If there are notes, set the first note as the selected note
+          if (response.data.length > 0) {
+              setSelectedNote(response.data[0].noteId);
+          }
+          console.log(response.data);
+      }).catch((error) => {
+          console.log(error);
+          if (error.response.status === 403) {
+              // If the user is forbidden, redirect to the home page
+              navigate("/");
+          }
+      });
+    }
 
 
+    /**
+     * Fetches user tags from the API and updates the tags state.
+     * If the user is forbidden, redirects to the home page.
+     */
     function getUserTags(){
         // Fetch user tags from the API
         axios.get("/api/getUserTags").then((response) => {
@@ -51,48 +104,31 @@ export default function Dashboard() {
     }
 
 
-    function getUserNotes(){    
-          // Fetch user notes from the API
-          setSelectedPage("All notes");
-          axios.get("/api/getUserNotes").then((response) => {
-            console.log(response.data);
-            // Update the notes state with the fetched data
-            setNotes(response.data);
-
-            //if there are notes, set the first note as the selected note
-            if (response.data.length > 0) {
-                setSelectedNote(response.data[0].noteId);
-            }
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
-            if (error.response.status === 403) {
-                // If the user is forbidden, redirect to the home page
-                navigate("/");
-            }
-        });
-    }
-
+  
+/*=======================================================*/
+//
+//  Search function
+//
+/*=======================================================*/
 
     function searchGetter(search){
         setSearch(search);
     }
 
 
-
+/*=======================================================*/
+//
+//  Create new note
+//
+/*=======================================================*/
 
     /**
-     * Creates a new note with default values and updates the state.
-     * 
-     * The new note object contains the following properties:
-     * - noteId: A unique identifier for the note, based on the current number of notes.
-     * - noteTitle: An empty string representing the title of the note.
-     * - noteContent: An empty string representing the content of the note.
-     * - noteTags: An empty array representing the tags associated with the note.
-     * - noteLastEditDate: The current date in a localized string format.
-     * 
-     * The function updates the state by adding the new note to the existing list of notes
-     * and sets the newly created note as the selected note.
+     * Creates a new note with the current date and time as the last edit date.
+     * The new note is initialized with an empty title, content, and tags.
+     * The note is then added to the existing list of notes and set as the selected note.
+     *
+     * @function
+     * @name createNewNote
      */
     function createNewNote(){
         const date = new Date().toLocaleString() ;
@@ -109,17 +145,11 @@ export default function Dashboard() {
     }
 
 
-
-
-
-
-
 /*=======================================================*/
 //
 //  Functions to update the notes
 //
 /*=======================================================*/
-
 
     /**
      * Updates the title of the selected note.
@@ -184,11 +214,34 @@ export default function Dashboard() {
 
 
     // function to set the selected note
+    /**
+     * Sets the selected note by its ID.
+     *
+     * @param {string} id - The ID of the note to be selected.
+     */
     function setSelected(id){
         setSelectedNote(id);
     }
 
+
+/*=======================================================*/
+//
+//  save note
+//
+/*=======================================================*/
+
     // Function to save the selected note
+    /**
+     * Saves the currently selected note to the server.
+     *
+     * This function finds the note that matches the selected note ID and sends a POST request
+     * to save the note to the server. Upon successful save, it fetches the updated list of notes
+     * and tags from the server and displays a success message to the user. If the save operation
+     * fails, it displays an error message to the user.
+     *
+     * @function saveNote
+     * @returns {void}
+     */
     function saveNote() {
         // Find the note that matches the selected note ID
         const saveNote = notes.find((note) => note.noteId === selectedNote);
@@ -224,7 +277,13 @@ export default function Dashboard() {
 //
 /*=======================================================*/
 
-
+    /**
+     * Fetches archived notes from the server and updates the state with the retrieved notes.
+     * If the user is not authorized (status 403), navigates to the home page.
+     *
+     * @function getArchivedNotes
+     * @returns {void}
+     */
     function getArchivedNotes(){
         setSelectedPage("Archived notes");
         axios.get("/api/getArchivedNotes").then((response) => {
@@ -239,7 +298,16 @@ export default function Dashboard() {
     }
 
 
-    //function to archive the selected note
+    /**
+     * Archives a selected note by sending a POST request to the server.
+     * 
+     * This function finds the note with the specified `noteId` from the `notes` array,
+     * sends it to the server to be archived, and updates the user's notes upon success.
+     * It also displays a success or error toast notification based on the result.
+     * 
+     * @function archiveNote
+     * @returns {void}
+     */
     function archiveNote(){
         const archiveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(archiveNote);
@@ -262,8 +330,18 @@ export default function Dashboard() {
     }
 
 
-    //function to unarchive note
-
+    /**
+     * Unarchives a note by sending a POST request to the server.
+     * 
+     * This function finds the note with the specified `noteId` from the `notes` array,
+     * sends a POST request to the `/api/unarchiveNote` endpoint with the note data,
+     * and handles the response by updating the archived notes and displaying a success or error message.
+     * 
+     * @function
+     * @name unarchiveNote
+     * 
+     * @returns {void}
+     */
     function unarchiveNote(){
         const unarchiveNote = notes.find((note) => note.noteId === selectedNote);
         console.log(unarchiveNote);
@@ -285,7 +363,47 @@ export default function Dashboard() {
         });
     }
 
- 
+ /*=======================================================*/
+//
+//  Functions to a delete notes
+//
+/*=======================================================*/
+
+    function confirmDeleteNote(){
+        setIsOpenDeleteModal(true);
+    }
+
+    function deleteNote(confirm){
+        if(confirm === false){
+            return;
+        }else{
+            const deleteNote = notes.find((note) => note.noteId === selectedNote);
+            console.log(deleteNote);
+
+            axios.post("/api/deleteNote", {deleteNote})
+            .then((response) => {
+
+                if(selectedPage === "Archived notes"){
+                    getArchivedNotes();
+                } else {
+                    getUserNotes();
+                }
+                console.log(response);
+                setIsOpenDeleteModal(false);
+                toast.success("Note deleted successfully",{
+                    autoClose: 2000,
+                    position: "top-center",
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error("Failed to delete note",{
+                    autoClose: 2000,
+                    position: "top-center",
+                });
+            });
+        }
+    }
 
    
 
@@ -326,6 +444,7 @@ export default function Dashboard() {
                 <NoteControls 
                     archiveNote={archiveNote}
                     unarchiveNote={unarchiveNote}
+                    confirmDeleteNote={confirmDeleteNote}
                     note={notes.filter((note) => note.noteId === selectedNote)[0]}
                 />
                 }
@@ -337,6 +456,12 @@ export default function Dashboard() {
                     setIsOpenTagModal={setIsOpenTagModal}
                     selectedNote={selectedNote}
                     addNewTag={addNewTag}
+                />
+            }
+            {isOpenDeleteModal && 
+                <DeleteModal 
+                    setIsOpenDeleteModal={setIsOpenDeleteModal}
+                    deleteNote={deleteNote}
                 />
             }
         </div>

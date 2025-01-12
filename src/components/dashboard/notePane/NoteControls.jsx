@@ -44,7 +44,7 @@ export default function NoteControls(props){
                 style="noteControl"
                 type="submit"
                 fullWidth={false}
-                clickHandler={props.saveNote}  
+                clickHandler={props.confirmDeleteNote}  
                 icon="../src/assets/icon-delete.svg"  
             />
 
