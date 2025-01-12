@@ -60,6 +60,16 @@ button{
     }
 }
 
+.warningBtn{
+    background-color:$red500;
+    border:none;
+    color:$white;
+
+    &:hover{
+        background-color:$red800;
+    }
+}
+
 .fullWidth{
     width:100%;
 }

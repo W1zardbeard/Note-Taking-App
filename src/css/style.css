@@ -320,6 +320,15 @@ button:disabled {
   cursor: pointer;
 }
 
+.warningBtn {
+  background-color: #FB3748;
+  border: none;
+  color: #FFFFFF;
+}
+.warningBtn:hover {
+  background-color: #c81824;
+}
+
 .fullWidth {
   width: 100%;
 }

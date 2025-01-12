@@ -280,6 +280,28 @@ router.get("/getArchivedNotes", authenticateToken, async (req, res) => {
           res.status(500).send("Internal Server Error");
       }
     });
+
+
+// ==========================
+// Route to delete note
+// ==========================
+
+router.post("/deleteNote", authenticateToken, async (req, res) => {
+    console.log(req.body);
+    
+    try{
+        const userId = req.user.data.userId;
+        const id = req.body.deleteNote.id;
+        const result = await db.query(
+            "DELETE FROM notes WHERE id = $1",
+            [id]
+        );
+        res.status(200).send("Note deleted successfully");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+})
     
 
 export default router;

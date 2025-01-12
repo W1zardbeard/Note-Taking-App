@@ -68,6 +68,24 @@ export default function CTA(props){
                     </button>
                 )
                 break;
+                
+                case "warning":
+                    return(
+                        <button 
+                            className={props.fullWidth ? "warningBtn fullWidth" : "warningBtn"} 
+                            type={props.type}
+                            disabled={props.disabled}
+                            onClick = {() => {
+                                if(props.clickHandler){
+                                    props.clickHandler();
+                                }
+                            }}
+                        >
+                
+                            {props.text}
+                        </button>
+                    )
+                    break;
     }
     
 }
