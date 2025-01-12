@@ -42,7 +42,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
     try {
         // Query the database to get notes for the user with the specified userId
         const notesResult = await db.query(
-            "SELECT id, title, content, lastEditDate, isarchived FROM notes WHERE user_id = $1",
+            "SELECT id, title, content, lastEditDate, isarchived FROM notes WHERE user_id = $1 AND isarchived = false",
             [userId]
         );
 
@@ -222,5 +222,64 @@ router.post("/archiveNote", authenticateToken, async (req, res) => {
    
 });
 
+
+
+router.post("/unarchiveNote", authenticateToken, async (req, res) => {
+    console.log(req.body);
+    
+    try{
+        const userId = req.user.data.userId;
+        const id = req.body.unarchiveNote.id;
+        const result = await db.query(
+            "UPDATE notes SET isarchived = false WHERE id = $1 RETURNING *",
+            [ id]
+        );
+        res.status(200).send("Note unarchived successfully");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+   
+});
+
+
+router.get("/getArchivedNotes", authenticateToken, async (req, res) => {
+      // Extract the userId from the authenticated user's token
+      const userId = req.user.data.userId;
+      try {
+          // Query the database to get notes for the user with the specified userId
+          const notesResult = await db.query(
+              "SELECT id, title, content, lastEditDate, isarchived FROM notes WHERE user_id = $1 AND isarchived = true",
+              [userId]
+          );
+  
+          // Extract the rows (notes) from the query result
+          const notes = notesResult.rows;
+  
+          // Iterate over each note to fetch its associated tags
+          for (let note of notes) {
+              const tagsResult = await db.query(
+                  // Query to get tags associated with the current note
+                  "SELECT t.name FROM tags t INNER JOIN note_tags nt ON t.id = nt.tag_id WHERE nt.note_id = $1",
+                  [note.id]
+              );
+              // Add the tags to the note object
+              note.tags = tagsResult.rows.map(row => row.name);
+          }
+  
+          // Add a noteId property to each note for easier identification
+          notes.forEach((note, index) => {
+              note.noteId = index + 1;
+          });
+  
+          // Send the notes as the response
+          res.send(notes);
+      } catch (err) {
+          // Log any errors that occur and send a 500 status code
+          console.log(err);
+          res.status(500).send("Internal Server Error");
+      }
+    });
+    
 
 export default router;

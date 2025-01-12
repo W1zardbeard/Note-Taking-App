@@ -21,6 +21,7 @@ export default function Dashboard() {
     const [search, setSearch] = useState("");
     const [notes, setNotes] = useState([]);
     const [selectedNote, setSelectedNote] = useState();
+    const [selectedPage, setSelectedPage] = useState("All notes");
 
     const [isOpenTagModal, setIsOpenTagModal] = useState(false);
 
@@ -30,6 +31,9 @@ export default function Dashboard() {
         getUserTags();
         getUserNotes();
     }, []);
+
+
+  
 
 
     function getUserTags(){
@@ -49,6 +53,7 @@ export default function Dashboard() {
 
     function getUserNotes(){    
           // Fetch user notes from the API
+          setSelectedPage("All notes");
           axios.get("/api/getUserNotes").then((response) => {
             console.log(response.data);
             // Update the notes state with the fetched data
@@ -213,6 +218,26 @@ export default function Dashboard() {
             });
     }
 
+/*=======================================================*/
+//
+//  Functions to archive and get archived notes
+//
+/*=======================================================*/
+
+
+    function getArchivedNotes(){
+        setSelectedPage("Archived notes");
+        axios.get("/api/getArchivedNotes").then((response) => {
+            console.log(response.data);
+            setNotes(response.data);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                navigate("/");
+            }
+        });
+    }
+
 
     //function to archive the selected note
     function archiveNote(){
@@ -220,7 +245,7 @@ export default function Dashboard() {
         console.log(archiveNote);
         axios.post("/api/archiveNote", {archiveNote})
         .then((response) => {
-            getNotes();
+            getUserNotes();
             console.log(response);
             toast.success("Note archived successfully",{
                 autoClose: 2000,
@@ -236,6 +261,30 @@ export default function Dashboard() {
         });
     }
 
+
+    //function to unarchive note
+
+    function unarchiveNote(){
+        const unarchiveNote = notes.find((note) => note.noteId === selectedNote);
+        console.log(unarchiveNote);
+        axios.post("/api/unarchiveNote", {unarchiveNote})
+        .then((response) => {
+            getArchivedNotes();
+            console.log(response);
+            toast.success("Note unarchived successfully",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Failed to unarchive note",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        });
+    }
+
  
 
    
@@ -243,17 +292,20 @@ export default function Dashboard() {
     return (
         <div className='dashboard'>
             <SideNav 
+                getArchivedNotes={getArchivedNotes}
+                getAllNotes={getUserNotes}
                 tags={tags}
             />
             <div className='main'>
                 <TopHeader 
                     tagPage={false}
-                    // selectedPage={selectedPage}
+                    selectedPage={selectedPage}
                     searchGetter={searchGetter}
                 />
 
                 <div className='notePane'>
                   <NoteList
+                    selectedPage={selectedPage}
                     selectedNote={selectedNote} 
                     notes={notes}
                     createNewNote={createNewNote}
@@ -270,9 +322,13 @@ export default function Dashboard() {
                     newTag={setIsOpenTagModal}
                   />
                 }
+                {notes.length > 0 &&
                 <NoteControls 
                     archiveNote={archiveNote}
+                    unarchiveNote={unarchiveNote}
+                    note={notes.filter((note) => note.noteId === selectedNote)[0]}
                 />
+                }
                 </div>
             </div>
             <ToastContainer />

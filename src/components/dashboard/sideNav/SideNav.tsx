@@ -8,6 +8,8 @@ interface Tag {
 
 interface SideNavProps {
     tags: Tag[];
+    getArchivedNotes: () => void,
+    getAllNotes: () => void
 }
 
 export default function SideNav(props: SideNavProps){
@@ -21,10 +23,12 @@ export default function SideNav(props: SideNavProps){
 
                 <div className="navItemContainer">
                     <NavItem
+                        clickHandler={props.getAllNotes}
                         icon="../src/assets/icon-home.svg"
                         title="All notes"
                     />
                     <NavItem
+                        clickHandler={props.getArchivedNotes}
                         icon="../src/assets/icon-archive.svg"
                         title="Archived notes"
                     />

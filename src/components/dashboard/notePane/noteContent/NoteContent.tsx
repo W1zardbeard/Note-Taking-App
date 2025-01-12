@@ -15,6 +15,7 @@ export default function NoteContent(props){
     const [noteContent, setNoteContent] = useState("");
     const [noteTags, setNoteTags] = useState([]);
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
+    const [noteArchived, setNoteArchived] = useState();
 
     // Update note on load
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function NoteContent(props){
         setNoteContent(props.note?.content || "");
         setNoteTags(props.note?.tags);
         setNoteLastEditDate(props.note?.lasteditdate || "");
+        setNoteArchived(props.note?.isarchived || null);
     }, [props.note]);
 
 
@@ -46,6 +48,8 @@ export default function NoteContent(props){
       
      
     }
+
+   
 
     return(
         <div className="noteContent">
