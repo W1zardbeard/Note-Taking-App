@@ -9,9 +9,10 @@ export default function NoteControls(props){
         setIsArchived(props.note?.isarchived);
     }, [props.note]);
 
-    console.log(props.note?.isarchived);
+   console.log(props.note)
 
     return(
+        props.note?.id === null ? null :
         <div className="noteControls">
 
             {isArchived ? 
@@ -50,5 +51,6 @@ export default function NoteControls(props){
 
             
         </div>
+    
     )
 }
