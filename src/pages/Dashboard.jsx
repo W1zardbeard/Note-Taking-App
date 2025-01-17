@@ -11,6 +11,7 @@ import NoteList from '../components/dashboard/notePane/NoteList.tsx';
 import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
 import TagModal from '../components/TagModal.jsx';
 import DeleteModal from '../components/DeleteModal.jsx';
+import DeleteTagModal from '../components/DeleteTagModal.jsx';
 import NoteControls from '../components/dashboard/notePane/NoteControls.jsx';
 
 
@@ -38,6 +39,13 @@ export default function Dashboard() {
 
     // State to control the visibility of the tag modal
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
+    // State to control the visibility of the delete tag modal
+    const [isOpenDeleteTagModal, setIsOpenDeleteTagModal] = useState(false);
+
+
+    //State to store tagId for deletion
+    const [deleteTagId, setDeleteTagId] = useState();
 
     // Hook to navigate programmatically
     const navigate = useNavigate();
@@ -405,6 +413,47 @@ export default function Dashboard() {
         }
     }
 
+
+
+    
+ /*=======================================================*/
+//
+//  Functions to a delete tags
+//
+/*=======================================================*/
+function confirmDeleteTag(tagId){
+    setIsOpenDeleteTagModal(true);
+    setDeleteTagId(tagId);
+}
+
+
+function deleteTag(confirm){
+    if(confirm === false){
+        return;
+    }else{
+       
+       axios.post("/api/deleteTag", {tagId: deleteTagId})
+        .then((response) => {
+            console.log(response);
+            setIsOpenDeleteModal(false);
+            getUserTags();
+            getUserNotes();
+            toast.success("Tag deleted successfully",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Failed to delete Tag",{
+                autoClose: 2000,
+                position: "top-center",
+            });
+        });
+
+    }
+}
+
    
 
     return (
@@ -413,6 +462,7 @@ export default function Dashboard() {
                 getArchivedNotes={getArchivedNotes}
                 getAllNotes={getUserNotes}
                 tags={tags}
+                confirmDeleteTag={confirmDeleteTag}
             />
             <div className='main'>
                 <TopHeader 
@@ -462,6 +512,13 @@ export default function Dashboard() {
                 <DeleteModal 
                     setIsOpenDeleteModal={setIsOpenDeleteModal}
                     deleteNote={deleteNote}
+                />
+            }
+
+            {isOpenDeleteTagModal && 
+                <DeleteTagModal 
+                    setIsOpenDeleteTagModal={setIsOpenDeleteTagModal}
+                    deleteTag={deleteTag}
                 />
             }
         </div>

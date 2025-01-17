@@ -304,4 +304,26 @@ router.post("/deleteNote", authenticateToken, async (req, res) => {
 })
     
 
+
+// ==========================
+// Route to delete tag
+// ==========================
+
+router.post("/deleteTag", authenticateToken, async (req, res) => {
+    console.log(req.body);
+
+    try{
+        const tagId = req.body.tagId;
+        const result = await db.query(
+            "DELETE FROM tags WHERE id = $1",
+            [tagId]
+        );
+        res.status(200).send("Tag deleted successfully");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }    
+    
+});
+
 export default router;
