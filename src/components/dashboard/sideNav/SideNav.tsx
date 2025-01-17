@@ -1,5 +1,6 @@
 import Logo from "../../Logo"
 import NavItem from "./NavItem"
+import NavTag from "./NavTag"
 
 interface Tag {
     id: string;
@@ -9,7 +10,8 @@ interface Tag {
 interface SideNavProps {
     tags: Tag[];
     getArchivedNotes: () => void,
-    getAllNotes: () => void
+    getAllNotes: () => void,
+    confirmDeleteTag: (id: string) => void
 }
 
 export default function SideNav(props: SideNavProps){
@@ -40,10 +42,12 @@ export default function SideNav(props: SideNavProps){
 
                 <div className="navItemContainer">
                     {props.tags.map(({name, id}) => (
-                        <NavItem
+                        <NavTag
                             key={id}
+                            id={id}
                             icon="../src/assets/icon-tag.svg"
                             title={name}
+                            confirmDeleteTag={props.confirmDeleteTag}
                         />
                     ))}
                   

@@ -9,8 +9,10 @@ export default function NavItem(props) {
             }}
             className="navItem"
         >
+            
             <img src={props.icon} alt="logo" />
             <h4>{props.title}</h4>
+         
         </div>
     )
 }

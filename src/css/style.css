@@ -399,6 +399,24 @@ a:hover {
   border-radius: 8px;
   cursor: pointer;
 }
+.sidenav .navList .navTag {
+  justify-content: space-between;
+}
+.sidenav .navList .navTag .iconAndTitle {
+  display: flex;
+  gap: 8px;
+}
+.sidenav .navList .navTag:hover .tagDelete {
+  visibility: visible;
+}
+.sidenav .navList .navTag .tagDelete {
+  visibility: hidden;
+  border-radius: 4px;
+}
+.sidenav .navList .navTag .tagDelete:hover {
+  background-color: #E0E4EA;
+  color: #FFFFFF;
+}
 
 .topHeader {
   width: 100%;
@@ -642,6 +660,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
   margin-bottom: 16px;
 }
 .modalHeader h3 {

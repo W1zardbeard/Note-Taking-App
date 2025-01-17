@@ -50,6 +50,32 @@
         
         }
 
+        .navTag{
+            .iconAndTitle{
+                display:flex;
+                gap:$s8;
+            }
+
+            &:hover{
+                .tagDelete{
+                    visibility: visible;
+                  
+                }
+            }
+
+            justify-content: space-between;
+
+            .tagDelete{
+                visibility: hidden;
+                border-radius:$r4;
+
+                &:hover{
+                    background-color:$Neutral200;
+                    color:$white;
+                }
+            }
+        }
+
         
     }
 }
