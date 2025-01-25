@@ -17,12 +17,13 @@ export default function NoteContent(props){
     const [noteLastEditDate, setNoteLastEditDate] = useState("");
     const [noteArchived, setNoteArchived] = useState();
 
+
+
     // Update note on load
     useEffect(() => {
         setNoteId(props.selectedNote);
         setNoteTitle(props.note?.title || "");
-        setNoteContent(props.note?.content || "");
-        setNoteTags(props.note?.tags);
+        setNoteTags(props.note?.tags || []);
         setNoteLastEditDate(props.note?.lasteditdate || "");
         setNoteArchived(props.note?.isarchived || null);
     }, [props.note]);
@@ -30,11 +31,11 @@ export default function NoteContent(props){
 
     //update note tags
     useEffect(() => {
-        setNoteTags(props.note?.tags);
+        setNoteTags(props.note?.tags || []);
     }, [props.note?.tags]);
 
     // Update note title
-    function updateTitle(title: string){
+    function updateTitle(title){
         setNoteTitle(title);
         props.updateSelectedNoteTitle(noteId, title);
        
@@ -42,7 +43,7 @@ export default function NoteContent(props){
     }
 
     // Update note content
-    function updateContent(content: string){
+    function updateContent(content){
         setNoteContent(content);
         props.updateSelectedNoteContent(noteId, content);
       
@@ -69,10 +70,11 @@ export default function NoteContent(props){
                     </div>                   
                     <div className='tagContainer'>
                         {noteTags?.length > 0 ?
-                           noteTags?.map((tag, index) => (
+                            noteTags.map((tag, index) => (
                                 <Tag 
-                                    key={index}
-                                    tag={tag}
+                                key={index}
+                                id={tag.id} 
+                                name={tag.name} 
                                 />
                             ))
                         :

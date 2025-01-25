@@ -8,7 +8,7 @@ import { getUserNotes } from '../components/dashboard/utils/getNotes.jsx';
 import SideNav from '../components/dashboard/sideNav/SideNav.tsx';
 import TopHeader from '../components/dashboard/topHeader/TopHeader.tsx';
 import NoteList from '../components/dashboard/notePane/NoteList.tsx';
-import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.tsx';
+import NoteContent from '../components/dashboard/notePane/noteContent/NoteContent.jsx';
 import TagModal from '../components/TagModal.jsx';
 import DeleteModal from '../components/DeleteModal.jsx';
 import DeleteTagModal from '../components/DeleteTagModal.jsx';
@@ -74,7 +74,7 @@ export default function Dashboard() {
         // Fetch user notes from the API
         setSelectedPage("All notes");
         axios.get("/api/getUserNotes").then((response) => {
-          console.log(response.data);
+    
           // Update the notes state with the fetched data
           setNotes(response.data);
     
@@ -82,7 +82,7 @@ export default function Dashboard() {
           if (response.data.length > 0) {
               setSelectedNote(response.data[0].noteId);
           }
-          console.log(response.data);
+         
       }).catch((error) => {
           console.log(error);
           if (error.response.status === 403) {
@@ -207,11 +207,15 @@ export default function Dashboard() {
      * @param {string} tag - The tag to be added to the note.
      */
     function addNewTag(id, tag){ 
+        const newTag = {
+            id: null,
+            name: tag
+        }
         const updatedNotes = notes.map((note) => {
             if (note.noteId === selectedNote) {
                 return {
                     ...note,
-                    tags: [...note.tags, tag]
+                    tags: [...note.tags, newTag]
                 };
             }
             return note;
@@ -436,8 +440,12 @@ function deleteTag(confirm){
         .then((response) => {
             console.log(response);
             setIsOpenDeleteModal(false);
-            getUserTags();
-            getUserNotes();
+            if(selectedPage === "Archived notes"){
+                getArchivedNotes();
+            } else {
+                getUserNotes();
+            }
+            getUserTags();  
             toast.success("Tag deleted successfully",{
                 autoClose: 2000,
                 position: "top-center",
@@ -454,6 +462,23 @@ function deleteTag(confirm){
     }
 }
 
+
+    
+ /*=======================================================*/
+//
+//  Functions to a filter tags
+//
+/*=======================================================*/
+
+function filterTags(id){
+    alert("Filter tags" + id);
+    const filteredNotes = notes.filter((note) => 
+        note.tags.some((tag) => tag.id === id)
+);
+    console.log(filteredNotes);
+
+}
+
    
 
     return (
@@ -463,6 +488,7 @@ function deleteTag(confirm){
                 getAllNotes={getUserNotes}
                 tags={tags}
                 confirmDeleteTag={confirmDeleteTag}
+                filterTags={filterTags}
             />
             <div className='main'>
                 <TopHeader 

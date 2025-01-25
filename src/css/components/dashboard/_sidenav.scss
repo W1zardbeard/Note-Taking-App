@@ -50,12 +50,9 @@
         
         }
 
-        .navTag{
-            .iconAndTitle{
-                display:flex;
-                gap:$s8;
-            }
-
+        .navTagCont{
+            display:flex;
+            justify-content: space-between;
             &:hover{
                 .tagDelete{
                     visibility: visible;
@@ -63,19 +60,28 @@
                 }
             }
 
+        .navTag{
+            .iconAndTitle{
+                display:flex;
+                gap:$s8;
+            }
+
+            
+            flex: auto;
             justify-content: space-between;
 
-            .tagDelete{
-                visibility: hidden;
-                border-radius:$r4;
-
-                &:hover{
-                    background-color:$Neutral200;
-                    color:$white;
-                }
-            }
+           
         }
 
-        
+        .tagDelete{
+            visibility: hidden;
+            border-radius:$r4;
+
+            &:hover{
+                background-color:$Neutral200;
+                color:$white;
+            }
+        }
     }
+}
 }

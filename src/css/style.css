@@ -399,21 +399,26 @@ a:hover {
   border-radius: 8px;
   cursor: pointer;
 }
-.sidenav .navList .navTag {
+.sidenav .navList .navTagCont {
+  display: flex;
   justify-content: space-between;
 }
-.sidenav .navList .navTag .iconAndTitle {
+.sidenav .navList .navTagCont:hover .tagDelete {
+  visibility: visible;
+}
+.sidenav .navList .navTagCont .navTag {
+  flex: auto;
+  justify-content: space-between;
+}
+.sidenav .navList .navTagCont .navTag .iconAndTitle {
   display: flex;
   gap: 8px;
 }
-.sidenav .navList .navTag:hover .tagDelete {
-  visibility: visible;
-}
-.sidenav .navList .navTag .tagDelete {
+.sidenav .navList .navTagCont .tagDelete {
   visibility: hidden;
   border-radius: 4px;
 }
-.sidenav .navList .navTag .tagDelete:hover {
+.sidenav .navList .navTagCont .tagDelete:hover {
   background-color: #E0E4EA;
   color: #FFFFFF;
 }

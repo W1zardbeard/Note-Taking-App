@@ -18,8 +18,7 @@ export default function NoteListItem(props:any){
                     {props.note?.tags.length > 0 ?
                         props.note?.tags.map((tag, index) => (
                             <Tag 
-                                key={index}
-                                tag={tag}
+                            key={index} name={tag.name} id={tag.id}
                             />
                         ))
                     :

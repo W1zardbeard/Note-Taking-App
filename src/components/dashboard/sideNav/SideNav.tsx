@@ -11,7 +11,8 @@ interface SideNavProps {
     tags: Tag[];
     getArchivedNotes: () => void,
     getAllNotes: () => void,
-    confirmDeleteTag: (id: string) => void
+    confirmDeleteTag: (id: string) => void,
+    filterTags: (id: string) => void
 }
 
 export default function SideNav(props: SideNavProps){
@@ -48,6 +49,7 @@ export default function SideNav(props: SideNavProps){
                             icon="../src/assets/icon-tag.svg"
                             title={name}
                             confirmDeleteTag={props.confirmDeleteTag}
+                            clickHandler={props.filterTags}
                         />
                     ))}
                   

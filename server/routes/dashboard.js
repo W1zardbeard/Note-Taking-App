@@ -53,11 +53,12 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
         for (let note of notes) {
             const tagsResult = await db.query(
                 // Query to get tags associated with the current note
-                "SELECT t.name FROM tags t INNER JOIN note_tags nt ON t.id = nt.tag_id WHERE nt.note_id = $1",
+                "SELECT t.name, t.id FROM tags t INNER JOIN note_tags nt ON t.id = nt.tag_id WHERE nt.note_id = $1",
                 [note.id]
             );
+      
             // Add the tags to the note object
-            note.tags = tagsResult.rows.map(row => row.name);
+            note.tags = tagsResult.rows.map(row => row);
         }
 
         // Add a noteId property to each note for easier identification
@@ -84,7 +85,7 @@ router.get("/getUserNotes", authenticateToken, async (req, res) => {
 
 
 router.post("/saveNote" , authenticateToken, async (req, res) => {
-    console.log(req.body);  
+ 
 // Check if the note's dbId is null, indicating it's a new note
 if (req.body.saveNote.id == null) {
     try {
@@ -98,9 +99,20 @@ if (req.body.saveNote.id == null) {
         const content = req.body.saveNote.content;
         // Extract note tags from the request body (though not used in the query)
         const tags = req.body.saveNote.tags;
+
+        // Extract tag names from the request body
+        const tagNames = [];
+        tags.forEach(tag => {
+            tagNames.push(tag.name);
+        });
+      
+        
+
+
         //Extrast last edit date from the request body
         const lasteditdate = req.body.saveNote.lasteditdate;
         
+      
 
       
 
@@ -115,7 +127,7 @@ if (req.body.saveNote.id == null) {
         const noteId = result.rows[0].id;
 
         // Insert tags and associate them with the note
-        for (const tag of tags) {
+        for (const tag of tagNames) {
             // Insert the tag if it doesn't exist
             const tagResult = await db.query(
                 "INSERT INTO tags (name, user_id) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING id",
